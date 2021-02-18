@@ -41,6 +41,7 @@ gem 'rake'
 gem 'pg'
 gem 'sidekiq'
 gem 'hydra-role-management'
+gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -83,3 +84,5 @@ group :development, :test do
 end
 
 gem 'riiif', '~> 2.1'
+
+gem 'willow_sword', github: 'notch8/willow_sword'
