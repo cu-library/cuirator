@@ -40,6 +40,7 @@ gem 'hyrax', git: 'https://github.com/samvera/hyrax'
 gem 'rake'
 gem 'pg'
 gem 'sidekiq'
+gem 'hydra-role-management'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
