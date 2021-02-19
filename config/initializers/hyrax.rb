@@ -25,7 +25,7 @@ Hyrax.config do |config|
   # config.rendering_predicate = ::RDF::DC.hasFormat
 
   # Email recipient of messages sent via the contact form
-  config.contact_email = ENV['CONTACT_EMAIL']
+  config.contact_email = ENV.fetch('CONTACT_EMAIL', 'no-reply@example.com')
   
   # Text prefacing the subject entered in the contact form
   # config.subject_prefix = "Contact form:"
@@ -40,7 +40,7 @@ Hyrax.config do |config|
   config.uploader = {
     limitConcurrentUploads: 6,
     maxNumberOfFiles: 100,
-    maxFileSize: 1000.megabytes
+    maxFileSize: 2500.megabytes
   }
 
   # Enable displaying usage statistics in the UI
@@ -49,7 +49,7 @@ Hyrax.config do |config|
   config.analytics = false
 
   # Google Analytics tracking ID to gather usage statistics
-  config.google_analytics_id = '' 
+  config.google_analytics_id = ENV.fetch('GOOGLE_ANALYTICS_ID', '') 
 
   # Date you wish to start collecting Google Analytic statistics for
   # Leaving it blank will set the start date to when ever the file was uploaded by
@@ -169,11 +169,11 @@ Hyrax.config do |config|
   config.display_share_button_when_not_logged_in = false
 
   # The user who runs batch jobs. Update this if you aren't using emails
-  # config.batch_user_key = 'batchuser@example.com'
+  config.batch_user_key = ENV.fetch('BATCH_USER', '')
 
   # The user who runs fixity check jobs. Update this if you aren't using emails
-  # config.audit_user_key = 'audituser@example.com'
-  #
+  config.audit_user_key = ENV.fetch('AUDIT_USER', '')
+  
   # The banner image. Should be 5000px wide by 1000px tall
   config.banner_image = 'banner.jpg'
 
