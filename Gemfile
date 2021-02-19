@@ -39,6 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'hyrax', git: 'https://github.com/samvera/hyrax'
 gem 'rake'
 gem 'pg'
+gem 'okcomputer'
 gem 'sidekiq'
 gem 'hydra-role-management'
 gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
