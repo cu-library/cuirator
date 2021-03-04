@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 6f2f20a60387495bc142e5f57d62d3675452425d
+  revision: 43588e1e2f2f64151cc072691aaf89d17f55e811
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera/hyrax
-  revision: 001bb7ad73300a2183ed681c0b4e917f25199b67
+  revision: 917c2c2927869244a15e11b11eb5d91617edcb07
   specs:
     hyrax (3.0.0.pre.rc3)
       active-fedora (~> 13.1, >= 13.1.2)
@@ -80,7 +80,7 @@ GIT
       sass-rails (~> 5.0)
       select2-rails (~> 3.5)
       signet
-      tinymce-rails (~> 4.1)
+      tinymce-rails
       valkyrie (>= 2.1.1, < 3.0)
 
 GEM
@@ -140,7 +140,7 @@ GEM
       activemodel (= 5.2.4.5)
       activesupport (= 5.2.4.5)
       arel (>= 9.0)
-    activerecord-import (1.0.7)
+    activerecord-import (1.0.8)
       activerecord (>= 3.2)
     activestorage (5.2.4.5)
       actionpack (= 5.2.4.5)
@@ -160,10 +160,10 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (10.2.4.0)
       execjs
-    awesome_nested_set (3.3.1)
+    awesome_nested_set (3.4.0)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.1.0)
-    aws-partitions (1.427.0)
+    aws-partitions (1.430.0)
     aws-sdk-core (3.112.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -172,7 +172,7 @@ GEM
     aws-sdk-kms (1.42.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.88.1)
+    aws-sdk-s3 (1.89.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -591,11 +591,11 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0212)
+    mime-types-data (3.2021.0225)
     mimemagic (0.3.5)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
-    minitest (5.14.3)
+    minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -604,7 +604,7 @@ GEM
       redic
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
-    nio4r (2.5.5)
+    nio4r (2.5.7)
     noid (0.9.0)
     noid-rails (3.0.2)
       actionpack (>= 5.0.0, < 7)
@@ -740,14 +740,14 @@ GEM
       redis (>= 3.0.4)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
-    reform (2.3.3)
+    reform (2.5.0)
       disposable (>= 0.4.2, < 0.5.0)
       representable (>= 2.4.0, < 3.1.0)
       uber (< 0.2.0)
     reform-rails (0.2.1)
       activemodel (>= 5.0)
       reform (>= 2.3.1, < 3.0.0)
-    regexp_parser (2.0.3)
+    regexp_parser (2.1.1)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -831,7 +831,7 @@ GEM
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     slop (4.8.2)
-    solr_wrapper (3.0.2)
+    solr_wrapper (3.1.1)
       http
       retriable
       ruby-progressbar
@@ -870,7 +870,7 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tinymce-rails (4.9.11)
+    tinymce-rails (5.6.2.1)
       railties (>= 3.1.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
