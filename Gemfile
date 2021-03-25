@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'hyrax', git: 'https://github.com/samvera/hyrax'
+gem 'hyrax', '~> 3.0.0'
 gem 'rake'
 gem 'pg'
 gem 'okcomputer'
