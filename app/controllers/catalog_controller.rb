@@ -20,6 +20,12 @@ class CatalogController < ApplicationController
     config.view.masonry.partials = [:index]
     config.view.slideshow.partials = [:index]
 
+    config.oai = {
+      provider: {
+        admin_email: ENV.fetch('CONTACT_EMAIL', 'lts@library.carleton.ca'),
+	record_prefix: 'oai:carletondigitallibrary',
+      }
+    }
 
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     config.show.partials.insert(1, :openseadragon)
