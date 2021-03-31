@@ -43,6 +43,7 @@ gem 'okcomputer'
 gem 'sidekiq'
 gem 'hydra-role-management'
 gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
+gem 'blacklight_oai_provider'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
