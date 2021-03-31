@@ -13,3 +13,13 @@
     text-transform: none;
   }
 }
+
+footer.site-footer a {
+  border-bottom: 1px solid #767676;
+  padding-bottom: 4px;
+  color: #dfdfdf;
+  &:hover {
+    border-bottom: 1px solid #fff;
+    color: #fff;
+  }
+}
