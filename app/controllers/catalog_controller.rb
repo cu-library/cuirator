@@ -299,6 +299,9 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
+
+    # Delete slideshow view https://github.com/samvera/hyrax/issues/4763
+    config.view.delete(:slideshow)
   end
 
   # disable the bookmark control from displaying in gallery view
