@@ -27,4 +27,18 @@ class SolrDocument
   # Do content negotiation for AF models. 
 
   use_extension( Hydra::ContentNegotiation )
+
+  # Get degree fields for ETD worktype
+  def degree_level
+    self['degree_level_tesim']
+  end
+
+  def degree
+    self['degree_tesim']
+  end
+
+  def degree_discipline
+    self['degree_discipline_tesim']
+  end
+
 end
