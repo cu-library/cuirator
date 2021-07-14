@@ -62,6 +62,9 @@ class CatalogController < ApplicationController
     config.add_facet_field "language_sim", limit: 5
     config.add_facet_field "based_near_label_sim", limit: 5
     config.add_facet_field "publisher_sim", limit: 5
+    config.add_facet_field "degree_level_sim", label: "Degree Level", limit: 5
+    config.add_facet_field "degree_sim", label: "Degree", limit: 5
+    config.add_facet_field "degree_discipline_sim", label: "Degree Discipline", limit: 5
     config.add_facet_field "file_format_sim", limit: 5
     config.add_facet_field "member_of_collection_ids_ssim", limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
