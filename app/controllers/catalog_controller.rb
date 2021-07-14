@@ -85,6 +85,9 @@ class CatalogController < ApplicationController
     config.add_index_field "contributor_tesim", itemprop: 'contributor', link_to_search: "contributor_sim"
     config.add_index_field "proxy_depositor_ssim", label: "Depositor", helper_method: :link_to_profile
     config.add_index_field "publisher_tesim", itemprop: 'publisher', link_to_search: "publisher_sim"
+    config.add_index_field "degree_level_tesim", label: "Degree Level", link_to_search: "degree_level_sim"
+    config.add_index_field "degree_tesim", label: "Degree", link_to_search: "degree_sim"
+    config.add_index_field "degree_discipline_tesim", label: "Degree Discipline", link_to_search: "degree_discipline_sim"
     config.add_index_field "based_near_label_tesim", itemprop: 'contentLocation', link_to_search: "based_near_label_sim"
     config.add_index_field "language_tesim", itemprop: 'inLanguage', link_to_search: "language_sim"
     config.add_index_field "date_uploaded_dtsi", itemprop: 'datePublished', helper_method: :human_readable_date
