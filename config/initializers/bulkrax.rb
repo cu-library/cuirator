@@ -63,6 +63,16 @@ Bulkrax.setup do |config|
   #   e.g. to exclude date
   #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
 
+  # split: true => split multi-valued field values on semi-colon or pipe
+  # split: '\#' => split on character or regex
+  config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["contributor"] = { from: ["contributor"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["keyword"]     = { from: ["keyword"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["subject"]     = { from: ["subject"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["language"]    = { from: ["language"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["identifier"]  = { from: ["identifier"], split: '\||\;' }
+
   # To duplicate a set of mappings from one parser to another
   #   config.field_mappings["Bulkrax::OaiOmekaParser"] = {}
   #   config.field_mappings["Bulkrax::OaiDcParser"].each {|key,value| config.field_mappings["Bulkrax::OaiOmekaParser"][key] = value }
