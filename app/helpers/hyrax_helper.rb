@@ -5,7 +5,7 @@ module HyraxHelper
   include Hyrax::HyraxHelperBehavior
 
   def application_name
-    'Digital Collections'
+    'Digital Library'
   end
 
   def institution_name
