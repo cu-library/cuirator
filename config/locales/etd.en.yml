@@ -4,5 +4,5 @@ en:
       etd:     'fa fa-file-text-o'
     select_type:
       etd:
-        description:        "Electronic theses and dissertations"
+        description:        "Electronic thesis or dissertation"
         name:               "ETD"

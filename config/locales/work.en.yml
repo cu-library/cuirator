@@ -6,5 +6,5 @@ en:
       work:     'fa fa-file-text-o'
     select_type:
       work:
-        description:        "Work works"
+        description:        "Generic work"
         name:               "Work"
