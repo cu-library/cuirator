@@ -8,16 +8,16 @@ class Etd < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
-  # @todo use better URIs, check other ETDMS sources
-  property :degree_level, predicate: ::RDF::URI.new("http://digital.library.carleton.ca/ns#degree_level"), multiple: false do |index|
+  # @todo check / fix predicates before adding to OAI config
+  property :degree_level, predicate: ::RDF::URI.new("http://www.ndltd.org/standards/metadata/etdms/1.1/level"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :degree, predicate: ::RDF::URI.new("http://digital.library.carleton.ca/ns#degree"), multiple: false do |index|
+  property :degree, predicate: ::RDF::URI.new("http://www.ndltd.org/standards/metadata/etdms/1.1/name"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :degree_discipline, predicate: ::RDF::URI.new("http://digital.library.carleton.ca/ns#degree_discipline"), multiple: false do |index|
+  property :degree_discipline, predicate: ::RDF::URI.new("http://www.ndltd.org/standards/metadata/etdms/1.1/discipline"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
