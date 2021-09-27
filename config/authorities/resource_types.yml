@@ -11,16 +11,12 @@ terms:
     term: Conference Proceeding
   - id: Dataset
     term: Dataset
-  - id: Dissertation
-    term: Dissertation
   - id: Image
     term: Image
   - id: Journal
     term: Journal
   - id: Map or Cartographic Material
     term: Map or Cartographic Material
-  - id: Masters Thesis
-    term: Masters Thesis
   - id: Part of Book
     term: Part of Book
   - id: Poster
@@ -35,6 +31,8 @@ terms:
     term: Research Paper
   - id: Software or Program Code
     term: Software or Program Code
+  - id: Thesis
+    term: Thesis
   - id: Video
     term: Video
   - id: Other
