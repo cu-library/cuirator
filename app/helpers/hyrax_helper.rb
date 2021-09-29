@@ -18,14 +18,12 @@ module HyraxHelper
 
   # Blacklight helper_methods
 
-  # Index view helper to fetch and link Degree Level term by id
-  def link_degree_level_term options
-    # Keep field info in catalogue controller
-    raise ArgumentError unless options[:config] && options[:config].helper_method_link_field
-    term_id = options[:value].first
-    term_label = ::DegreeLevelsService.label(term_id)
-    path = main_app.search_catalog_path(search_state.add_facet_params_and_redirect(options[:config].helper_method_link_field, term_id))
-    link_to(term_label, path)
+  # Index view helpers
+
+  def degree_level_facet(options)
+    value = options[:value].first
+    label = ::DegreeLevelsService.label(value)
+    link_to_facet_term(value, label, 'degree_level_sim')
   end
 
   def language_facet(options)
@@ -44,7 +42,7 @@ module HyraxHelper
 
   # Facet view helpers
 
-  def degree_level_by_id value
+  def degree_level_term value
     ::DegreeLevelsService.label(value)
   end
 
