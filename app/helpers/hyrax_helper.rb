@@ -16,7 +16,8 @@ module HyraxHelper
     'Carleton University Library'
   end
 
-  # Blacklight helper_method
+  # Blacklight helper_methods
+
   # Index view helper to fetch and link Degree Level term by id
   def link_degree_level_term options
     # Keep field info in catalogue controller
@@ -27,10 +28,28 @@ module HyraxHelper
     link_to(term_label, path)
   end
 
-  # Blacklight helper_method
-  # Facet view helper 
+  def language_facet(options)
+    link_to_facet_term_list(options[:value], "language_sim")
+  end
+
+  def link_to_facet_term(value, label, field)
+    path = main_app.search_catalog_path(search_state.add_facet_params_and_redirect(field, value))
+    link_to(label, path)
+  end
+
+  def link_to_facet_term_list(values, field, empty_message = "", separator = ", ")
+    return empty_message if values.blank?
+    safe_join(values.map { |value| link_to_facet_term(value, ::LanguagesService.label(value), field) }, separator)
+  end
+
+  # Facet view helpers
+
   def degree_level_by_id value
     ::DegreeLevelsService.label(value)
+  end
+
+  def language_term value
+    ::LanguagesService.label(value)
   end
 
 end

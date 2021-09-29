@@ -4,9 +4,6 @@
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:publisher, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:degree_level, render_as: :degree_level_faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:degree, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:degree_discipline, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:language, render_as: :language, html_dl: true) %>
 <%= presenter.attribute_to_html(:identifier, render_as: :linked, search_field: 'identifier_tesim', html_dl: true) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
