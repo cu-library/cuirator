@@ -22,7 +22,7 @@ class CatalogController < ApplicationController
 
     config.oai = {
       provider: {
-        admin_email: ENV.fetch('CONTACT_EMAIL', 'lts@library.carleton.ca'),
+        admin_email: ENV.fetch('CONTACT_EMAIL', 'digital.library@carleton.ca'),
 	record_prefix: 'oai:carletondigitallibrary',
       }
     }
