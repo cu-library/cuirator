@@ -3,7 +3,7 @@
     <li class="active"><a href="#recently_uploaded" data-toggle="tab" id="recentTab"><%= t('hyrax.homepage.recently_uploaded.tab_label') %></a></li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane fade" id="recently_uploaded" role="tabpanel" aria-labelledby="recentTab">
+    <div class="tab-pane active" id="recently_uploaded" role="tabpanel" aria-labelledby="recentTab">
       <%= render 'recently_uploaded', recent_documents: @recent_documents %>
     </div>
   </div>
