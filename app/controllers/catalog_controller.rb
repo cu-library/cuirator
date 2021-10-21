@@ -61,9 +61,9 @@ class CatalogController < ApplicationController
     config.add_facet_field "language_sim", limit: 5, helper_method: :language_term
     config.add_facet_field "based_near_label_sim", limit: 5
     config.add_facet_field "publisher_sim", limit: 5
-    config.add_facet_field "degree_level_sim", label: "Degree Level", limit: 5, helper_method: :degree_level_term
-    config.add_facet_field "degree_sim", label: "Degree", limit: 5
-    config.add_facet_field "degree_discipline_sim", label: "Degree Discipline", limit: 5
+    config.add_facet_field "degree_level_sim", label: "Thesis Degree Level", limit: 5, helper_method: :degree_level_term
+    config.add_facet_field "degree_sim", label: "Thesis Degree", limit: 5
+    config.add_facet_field "degree_discipline_sim", label: "Thesis Degree Discipline", limit: 5
     config.add_facet_field "file_format_sim", limit: 5
     config.add_facet_field "member_of_collection_ids_ssim", limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
@@ -89,9 +89,9 @@ class CatalogController < ApplicationController
     config.add_index_field "contributor_tesim", itemprop: 'contributor', link_to_search: "contributor_sim"
     config.add_index_field "proxy_depositor_ssim", label: "Depositor", helper_method: :link_to_profile
     config.add_index_field "publisher_tesim", itemprop: 'publisher', link_to_search: "publisher_sim"
-    config.add_index_field "degree_level_tesim", label: "Degree Level", helper_method: :degree_level_facet
-    config.add_index_field "degree_tesim", label: "Degree", link_to_search: "degree_sim"
-    config.add_index_field "degree_discipline_tesim", label: "Degree Discipline", link_to_search: "degree_discipline_sim"
+    config.add_index_field "degree_level_tesim", label: "Thesis Degree Level", helper_method: :degree_level_facet
+    config.add_index_field "degree_tesim", label: "Thesis Degree", link_to_search: "degree_sim"
+    config.add_index_field "degree_discipline_tesim", label: "Thesis Degree Discipline", link_to_search: "degree_discipline_sim"
     config.add_index_field "based_near_label_tesim", itemprop: 'contentLocation', link_to_search: "based_near_label_sim"
     config.add_index_field "language_tesim", itemprop: 'inLanguage', helper_method: :language_facet
     config.add_index_field "date_uploaded_dtsi", itemprop: 'datePublished', helper_method: :human_readable_date

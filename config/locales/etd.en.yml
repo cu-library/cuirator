@@ -6,3 +6,14 @@ en:
       etd:
         description:        "Electronic thesis or dissertation"
         name:               "ETD"
+  simple_form:
+    hints:
+      etd:
+        degree: Thesis degree name, e.g., Master of Science
+        degree_level: Select thesis degree level
+        degree_discipline: Thesis degree discipline, e.g., Engineering
+    labels:
+      etd:
+        degree: Thesis degree name
+        degree_level: Thesis degree level
+        degree_discipline: Thesis degree discipline
