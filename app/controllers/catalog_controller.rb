@@ -55,7 +55,6 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_facet_field "resource_type_sim", label: "Resource Type", limit: 5
     config.add_facet_field "creator_sim", limit: 5
-    config.add_facet_field "contributor_sim", label: "Contributor", limit: 5
     config.add_facet_field "keyword_sim", limit: 5
     config.add_facet_field "subject_sim", limit: 5
     config.add_facet_field "language_sim", limit: 5, helper_method: :language_term
@@ -86,7 +85,7 @@ class CatalogController < ApplicationController
     config.add_index_field "keyword_tesim", itemprop: 'keywords', link_to_search: "keyword_sim"
     config.add_index_field "subject_tesim", itemprop: 'about', link_to_search: "subject_sim"
     config.add_index_field "creator_tesim", itemprop: 'creator', link_to_search: "creator_sim"
-    config.add_index_field "contributor_tesim", itemprop: 'contributor', link_to_search: "contributor_sim"
+    config.add_index_field "contributor_tesim", itemprop: 'contributor'
     config.add_index_field "proxy_depositor_ssim", label: "Depositor", helper_method: :link_to_profile
     config.add_index_field "publisher_tesim", itemprop: 'publisher', link_to_search: "publisher_sim"
     config.add_index_field "degree_level_tesim", label: "Thesis Degree Level", helper_method: :degree_level_facet
