@@ -1,7 +1,7 @@
 <%= presenter.attribute_to_html(:abstract, html_dl: true) %>
 <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified'), html_dl: true) %>
 <%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:contributor, html_dl: true) %>
+<%= presenter.attribute_to_html(:contributor, render_as: :contributor, search_field: 'all_fields', html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:publisher, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:degree_level, label: t('simple_form.labels.etd.degree_level'), render_as: :degree_level_faceted, html_dl: true) %>
