@@ -53,18 +53,16 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
+    config.add_facet_field "member_of_collection_ids_ssim", limit: 5, label: 'Collections', helper_method: :collection_title_by_id
     config.add_facet_field "resource_type_sim", label: "Resource Type", limit: 5
     config.add_facet_field "creator_sim", limit: 5
-    config.add_facet_field "keyword_sim", limit: 5
     config.add_facet_field "subject_sim", limit: 5
     config.add_facet_field "language_sim", limit: 5, helper_method: :language_term
     config.add_facet_field "based_near_label_sim", limit: 5
-    config.add_facet_field "publisher_sim", limit: 5
     config.add_facet_field "degree_level_sim", label: "Thesis Degree Level", limit: 5, helper_method: :degree_level_term
     config.add_facet_field "degree_sim", label: "Thesis Degree", limit: 5
     config.add_facet_field "degree_discipline_sim", label: "Thesis Degree Discipline", limit: 5
     config.add_facet_field "file_format_sim", limit: 5
-    config.add_facet_field "member_of_collection_ids_ssim", limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
     # The type, generic_type and depositor are not displayed on the facet list
     # They are used to give a label to the filters that comes from the user profile
