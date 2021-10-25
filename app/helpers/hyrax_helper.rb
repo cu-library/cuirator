@@ -9,11 +9,11 @@ module HyraxHelper
   end
 
   def institution_name
-    'Carleton University Library'
+    'Carleton University'
   end
 
   def  institution_name_full 
-    'Carleton University Library'
+    'Carleton University'
   end
 
   # Blacklight helper_methods
