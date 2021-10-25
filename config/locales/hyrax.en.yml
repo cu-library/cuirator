@@ -10,7 +10,9 @@ en:
           generic_type_sim: Type
           keyword_sim: Keyword
           language_sim: Language
+          member_of_collection_ids_ssim: Collections
           publisher_sim: Publisher
+          resource_type_sim: Resource Type
           subject_sim: Subject
         index:
           based_near_tesim: Location

@@ -1,4 +1,11 @@
 en:
+  blacklight:
+    search:
+      fields:
+        facet:
+          degree_discipline_sim: Thesis Degree Discipline
+          degree_level_sim: Thesis Degree Level
+          degree_sim: Thesis Degree
   hyrax:
     icons:
       etd:     'fa fa-file-text-o'
