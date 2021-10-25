@@ -9,9 +9,9 @@ en:
   simple_form:
     hints:
       etd:
-        degree: Thesis degree name, e.g., Master of Science
-        degree_level: Select thesis degree level
-        degree_discipline: Thesis degree discipline, e.g., Engineering
+        degree: Thesis degree name. Include abbreviation in parentheses, e.g., "Master of Science (M.Sc.)".
+        degree_level: Select thesis degree level.
+        degree_discipline: Thesis degree discipline, e.g., "Engineering".
     labels:
       etd:
         degree: Thesis degree name
