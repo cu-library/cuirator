@@ -102,7 +102,7 @@ class CatalogController < ApplicationController
     config.add_show_field "date_created_tesim"
     config.add_show_field "rights_statement_tesim"
     config.add_show_field "license_tesim"
-    config.add_show_field "resource_type_tesim", label: "Resource Type"
+    config.add_show_field "resource_type_tesim"
     config.add_show_field "format_tesim"
     config.add_show_field "identifier_tesim"
 
