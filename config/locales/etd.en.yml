@@ -6,6 +6,10 @@ en:
           degree_discipline_sim: Thesis Degree Discipline
           degree_level_sim: Thesis Degree Level
           degree_sim: Thesis Degree
+        index:
+          degree_discipline_tesim: Thesis Degree Discipline
+          degree_level_tesim: Thesis Degree Level
+          degree_tesim: Thesis Degree
   hyrax:
     icons:
       etd:     'fa fa-file-text-o'

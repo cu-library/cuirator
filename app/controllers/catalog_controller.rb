@@ -77,16 +77,14 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field "title_tesim", label: "Title", itemprop: 'name', if: false
-    config.add_index_field "description_tesim", itemprop: 'description', helper_method: :iconify_auto_link
-    config.add_index_field "abstract_tesim", label: 'Abstract', itemprop: 'abstract', helper_method: :iconify_auto_link
+    config.add_index_field "title_tesim", itemprop: 'name', if: false
+    config.add_index_field "resource_type_tesim", link_to_search: "resource_type_sim"
     config.add_index_field "creator_tesim", itemprop: 'creator', link_to_search: "creator_sim"
-    config.add_index_field "contributor_tesim", itemprop: 'contributor', helper_method: :contributor_search
-    config.add_index_field "degree_level_tesim", label: "Thesis Degree Level", helper_method: :degree_level_facet
-    config.add_index_field "degree_tesim", label: "Thesis Degree", link_to_search: "degree_sim"
-    config.add_index_field "degree_discipline_tesim", label: "Thesis Degree Discipline", link_to_search: "degree_discipline_sim"
+    config.add_index_field "description_tesim", itemprop: 'description', helper_method: :iconify_auto_link
+    config.add_index_field "abstract_tesim", itemprop: 'abstract', helper_method: :iconify_auto_link
+    config.add_index_field "degree_tesim", link_to_search: "degree_sim"
+    config.add_index_field "degree_discipline_tesim", link_to_search: "degree_discipline_sim"
     config.add_index_field "date_created_tesim", itemprop: 'dateCreated'
-    config.add_index_field "resource_type_tesim", label: "Resource Type", link_to_search: "resource_type_sim"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

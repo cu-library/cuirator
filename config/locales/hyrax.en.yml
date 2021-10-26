@@ -15,6 +15,7 @@ en:
           resource_type_sim: Resource Type
           subject_sim: Subject
         index:
+          abstract_tesim: Abstract
           based_near_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator
@@ -29,7 +30,9 @@ en:
           license_tesim: License
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
+          resource_type_tesim: Resource Type
           subject_tesim: Subject
+          title_tesim: Title
         show:
           based_near_tesim: Location
           contributor_tesim: Contributor
