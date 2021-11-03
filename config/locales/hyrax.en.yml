@@ -57,6 +57,7 @@ en:
         date_created: Date Created
         last_modified: Last Modified
         resource_type: Resource Type
+        rights_notes: Rights Notes
         rights_statement: Rights Statement
     directory:
       suffix: "@example.org"
