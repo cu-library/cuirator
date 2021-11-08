@@ -26,6 +26,10 @@ module HyraxHelper
     link_to_facet_term(value, label, 'degree_level_sim')
   end
 
+  def date_created_facet(options)
+    safe_join(options[:value].map { |value| link_to_facet_term(value, value, "date_created_year_sim") }, ", ")
+  end
+
   def link_to_facet_term(value, label, field)
     path = main_app.search_catalog_path(search_state.add_facet_params_and_redirect(field, value))
     link_to(label, path)
