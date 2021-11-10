@@ -20,5 +20,6 @@
 <% if presenter.editor? && !workflow_restriction?(presenter) %>
 <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified') + " (Admin only)", html_dl: true) %>
 <%= presenter.attribute_to_html(:date_uploaded, label: "Date Uploaded (Admin only)", html_dl: true) %>
+<%= presenter.attribute_to_html(:internal_note, html_dl: true) %>
 <% end %>
 

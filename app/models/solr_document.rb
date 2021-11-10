@@ -41,4 +41,8 @@ class SolrDocument
     self['degree_discipline_tesim']
   end
 
+  def internal_note
+    self['internal_note_tesim']
+  end
+
 end
