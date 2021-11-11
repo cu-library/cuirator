@@ -5,4 +5,8 @@ terms:
     term: English
   - id: fra
     term: French
+  - id: deu
+    term: German
+  - id: spa
+    term: Spanish
   
