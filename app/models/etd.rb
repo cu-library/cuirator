@@ -21,7 +21,7 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :internal_note, predicate: ::RDF::Vocab::MODS::note, multiple: true do |index|
+  property :internal_note, predicate: ::RDF::URI.new("https://digital.library.carleton.ca/ns#internal_note"), multiple: true do |index|
     index.as :stored_searchable
   end
 
