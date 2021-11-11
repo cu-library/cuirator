@@ -45,4 +45,8 @@ class SolrDocument
     self['internal_note_tesim']
   end
 
+  def agreement
+    self['agreement_tesim']
+  end
+
 end

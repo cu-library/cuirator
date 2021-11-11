@@ -1,0 +1,18 @@
+# Agreements accepted during ETD submission process
+# Presence / absence determines public access and distribution over OAI
+terms:
+  - id: https://curve.carleton.ca/e413696d-a5b3-41b2-99e3-c28ea7af861d
+    term: Carleton University Thesis License Agreement
+    active: true
+  - id: https://curve.carleton.ca/c0a3758d-7619-4c21-86d2-6d9092c32319
+    term: FIPPA Statement
+    active: true
+  - id: https://curve.carleton.ca/f6ba051b-0254-4191-9d26-ae29ed90ff62
+    term: Academic Integrity Statement
+    active: true
+  - id: https://curve.carleton.ca/bdd87162-9c52-480f-ac35-c0cebe35109f
+    term: LAC Non-Exclusive Licence
+    active: true
+
+
+  

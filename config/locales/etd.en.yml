@@ -10,6 +10,8 @@ en:
           degree_discipline_tesim: Thesis Degree Discipline
           degree_level_tesim: Thesis Degree Level
           degree_tesim: Thesis Degree
+        show:
+          agreement: Agreement(s)
   hyrax:
     icons:
       etd:     'fa fa-file-text-o'
@@ -20,6 +22,7 @@ en:
   simple_form:
     hints:
       etd:
+        agreement: Agreement(s) accepted by the author during ETD submission process. 
         degree: Thesis degree name. Include abbreviation in parentheses, e.g., "Master of Science (M.Sc.)".
         degree_level: Select thesis degree level.
         degree_discipline: Thesis degree discipline, e.g., "Engineering".
@@ -27,6 +30,8 @@ en:
         internal_note: Information about changes to ETDs. Internal notes are displayed to logged-in users with permission to edit ETDs.
     labels:
       etd:
+        agreement: Agreement        
         degree: Thesis Degree Name
         degree_level: Thesis Degree Level
         degree_discipline: Thesis Degree Discipline
+
