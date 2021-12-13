@@ -1,31 +1,25 @@
 <% provide :page_title, I18n.t('hyrax.contact_form.title') %>
-
-<!--
-<div class="alert alert-info">
-  <%= render 'directions' %>
-</div>
--->
-
 <h1>
   <%= t('hyrax.contact_form.title') %>
 </h1>
-
-<p class="MsoNormal" style="font-size: medium; caret-color: #000000; color: #000000;">
-  Questions about this repository can be directed to the Digital Library team at <a href="mailto:digital.library@carleton.ca">digital.library@carleton.ca</a>
+<p>
+  <a href="<%= Hyrax::Engine.routes.url_helpers.root_path %>">Carleton University Digital Library</a> is maintained by <a href="https://library.carleton.ca/">Carleton University Library</a>.
+</p> 
+<p>
+  Contact the Digital Library team at <a href="mailto:digital.library@carleton.ca">digital.library@carleton.ca</a>
 </p>
-
 <h2>Our services</h2>
-<p class="MsoNormal" style="font-size: medium; caret-color: #000000; color: #000000;">
+<p>
   We can help you with
 </p>
-<ul class="MsoNormal" style="font-size: medium; caret-color: #000000; color: #000000;">
-  <li>adding your work to the Digital Library’s collections of scholarly and creative works</li>
+<ul>
+  <li>adding your work to the Digital Library's collections of scholarly and creative works</li>
   <li>reviewing copyright permissions to make sure that you have the right to republish your work in this repository</li>
   <li>questions about Digital Library collections</li>
   <li>technical issues using this site</li>
 </ul>
-<p class="MsoNormal" style="font-size: medium; caret-color: #000000; color: #000000;">
-  We will respond as soon as we can during Library business hours, from 8:30 am to 4:30 pm, Monday to Friday.
+<p>
+  We will respond as soon as we can during business hours, from 8:30 am to 4:30 pm, Monday to Friday.
 </p>
 
 
