@@ -2,7 +2,7 @@
 <dl class="dl-horizontal file-show-term file-show-details">
   <% if can?(:edit, file_set.id) && !workflow_restriction?(file_set.parent) %>	
   <dt><%= t(".depositor") %></dt>
-  <dd itemprop="accountablePerson" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><%= link_to_profile @presenter.depositor %></span></dd>a
+  <dd itemprop="accountablePerson" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><%= link_to_profile @presenter.depositor %></span></dd>
   <% end %>
   <dt><%= t(".date_uploaded") %></dt>
   <dd itemprop="datePublished"><%= @presenter.date_uploaded %></dd>
