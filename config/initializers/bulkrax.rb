@@ -19,18 +19,8 @@ Bulkrax.setup do |config|
   # Server name for oai request header
   # config.server_name = 'my_server@name.com'
 
-  # Field_mapping for establishing a parent-child relationship (FROM parent TO child)
-  # This can be a Collection to Work, or Work to Work relationship
-  # This value IS NOT used for OAI, so setting the OAI Entries here will have no effect
-  # The mapping is supplied per Entry, provide the full class name as a string, eg. 'Bulkrax::CsvEntry'
-  # Example:
-  #   {
-  #     'Bulkrax::RdfEntry'  => 'http://opaquenamespace.org/ns/contents',
-  #     'Bulkrax::CsvEntry'  => 'children'
-  #   }
-  # By default no parent-child relationships are added
-  # config.parent_child_field_mapping = { }
-
+  # NOTE: Creating Collections using the collection_field_mapping will no longer be supported as of Bulkrax version 3.0.
+  #       Please configure Bulkrax to use related_parents_field_mapping and related_children_field_mapping instead.
   # Field_mapping for establishing a collection relationship (FROM work TO collection)
   # This value IS NOT used for OAI, so setting the OAI parser here will have no effect
   # The mapping is supplied per Entry, provide the full class name as a string, eg. 'Bulkrax::CsvEntry'
@@ -54,6 +44,11 @@ Bulkrax.setup do |config|
   # Add to, or change existing mappings as follows
   #   e.g. to exclude date
   #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
+  #
+  #   e.g. to import parent-child relationships
+  #   config.field_mappings['Bulkrax::CsvParser']['parents'] = { from: ['parents'], related_parents_field_mapping: true }
+  #   config.field_mappings['Bulkrax::CsvParser']['children'] = { from: ['children'], related_children_field_mapping: true }
+  #   (For more info on importing relationships, see Bulkrax Wiki: https://github.com/samvera-labs/bulkrax/wiki/Configuring-Bulkrax#parent-child-relationship-field-mappings)
   #
   # #   e.g. to add the required source_identifier field
   #   #   config.field_mappings["Bulkrax::CsvParser"]["source_id"] = { from: ["old_source_id"], source_identifier: true  }
