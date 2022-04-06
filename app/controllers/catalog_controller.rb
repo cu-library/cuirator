@@ -105,7 +105,7 @@ class CatalogController < ApplicationController
     config.add_show_field "license_tesim"
     config.add_show_field "resource_type_tesim"
     config.add_show_field "format_tesim"
-    config.add_show_field "identifier_tesim"
+    config.add_show_field "bibliographic_citation_tesim"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

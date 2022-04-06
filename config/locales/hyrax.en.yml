@@ -55,6 +55,7 @@ en:
     account_name: My Institution Account Id
     base:
       show:
+        bibliographic_citation: Citation
         date_created: Date Created
         last_modified: Last Modified
         resource_type: Resource Type
@@ -78,8 +79,12 @@ en:
         note_html: Restrict access to %{institution} users.
         text: "%{institution}"
   simple_form:
+    labels:
+      defaults:
+        bibliographic_citation: Citation
     hints:
       defaults:
+        bibliographic_citation: For submitted manuscript, pre-print, or other form of work that is not the final published version, include any citation information required by the publisher.
         contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role. If known, include contributor role in parentheses, e.g., "Smith, John (Supervisor)".
         identifier: 'A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book. Include the type of identifier, e.g., "DOI: https://doi.org/10.22215/etd/2021-14483".'
         source: System-generated identifier used by automated import and export processes.

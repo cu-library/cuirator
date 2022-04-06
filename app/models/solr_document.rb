@@ -28,6 +28,11 @@ class SolrDocument
 
   use_extension( Hydra::ContentNegotiation )
 
+  # Get citation field for Work worktype
+  def bibliographic_citation
+    self['bibliographic_citation_tesim']
+  end
+
   # Get degree fields for ETD worktype
   def degree_level
     self['degree_level_tesim']
