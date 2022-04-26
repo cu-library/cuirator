@@ -30,14 +30,17 @@
       </div>
     </div><!-- /panel -->
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h1 class="panel-title"><%= t('hyrax.base.show.relationships') %></h1>
+    <%# THIS IS THE RELATIONS FIND OUT HOW IT RENDERS FROM HERE%>
+    <%if user_signed_in? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title"><%= t('hyrax.base.show.relationships') %></h1>
+        </div>
+        <div class="panel-body">
+           <%= render 'relationships', presenter: @presenter %>
+        </div>
       </div>
-      <div class="panel-body">
-        <%= render 'relationships', presenter: @presenter %>
-      </div>
-    </div>
+    <%end%>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -52,10 +55,10 @@
     <%# = render 'sharing_with', presenter: @presenter %>
     <%# = render 'user_activity', presenter: @presenter %>
 
-<span class='hide analytics-event' data-category="work" data-action="work-view" data-name="<%= @presenter.id %>" >
-<% @presenter.member_of_collection_ids.each do |collection_id| %>
-  <span class='hide analytics-event' data-category="work-in-collection" data-action="work-in-collection-view" data-name="<%= collection_id %>" >
-<% end %>
+    <span class='hide analytics-event' data-category="work" data-action="work-view" data-name="<%= @presenter.id %>" >
+    <% @presenter.member_of_collection_ids.each do |collection_id| %>
+      <span class='hide analytics-event' data-category="work-in-collection" data-action="work-in-collection-view" data-name="<%= collection_id %>" >
+    <% end %>
 
   </div>
 </div>
