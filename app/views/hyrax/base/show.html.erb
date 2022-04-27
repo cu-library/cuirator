@@ -30,8 +30,6 @@
       </div>
     </div><!-- /panel -->
 
-    <%# THIS IS THE RELATIONS FIND OUT HOW IT RENDERS FROM HERE%>
-    <%if user_signed_in? %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h1 class="panel-title"><%= t('hyrax.base.show.relationships') %></h1>
@@ -40,7 +38,6 @@
            <%= render 'relationships', presenter: @presenter %>
         </div>
       </div>
-    <%end%>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -62,4 +59,3 @@
 
   </div>
 </div>
-
