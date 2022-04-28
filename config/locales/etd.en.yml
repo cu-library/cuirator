@@ -11,7 +11,8 @@ en:
           degree_level_tesim: Thesis Degree Level
           degree_tesim: Thesis Degree
         show:
-          agreement: Agreement(s)
+          agreement: Agreement(s) (Admin only)
+          internal_note: Internal Note(s) (Admin only)
   hyrax:
     icons:
       etd:     'fa fa-file-text-o'
@@ -19,6 +20,9 @@ en:
       etd:
         description:        "Electronic thesis or dissertation"
         name:               "ETD"
+    etd:
+      agreement: Agreement(s) (Admin only)
+      internal_note: Internal Note(s) (Admin only)
   simple_form:
     hints:
       etd:
@@ -28,10 +32,16 @@ en:
         degree_discipline: Thesis degree discipline, e.g., "Engineering".
         rights_notes: Contains information about rights held in and over the resource. Include the general rights notes added to ETDs unless other rights information has been provided.
         internal_note: Information about changes to ETDs. Internal notes are displayed to logged-in users with permission to edit ETDs.
+        access_rights: Access Rights
+        
     labels:
-      etd:
-        agreement: Agreement        
+      etd:       
+        agreement: Agreement(s) (Admin only)
+        internal_note: Internal Note(s) (Admin only)
         degree: Thesis Degree Name
         degree_level: Thesis Degree Level
         degree_discipline: Thesis Degree Discipline
+        access_rights: Access Rights
+        related_url: Related URL
+
 

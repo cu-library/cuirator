@@ -59,8 +59,10 @@ en:
         date_created: Date Created
         last_modified: Last Modified
         resource_type: Resource Type
-        rights_notes: Rights Notes
+        rights_notes: Rights Notes 123
+        access_rights: Access Rights 
         rights_statement: Rights Statement
+        related_url: Related URL
     directory:
       suffix: "@example.org"
     footer:
