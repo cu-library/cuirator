@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>Page not found (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
   .rails-default-error-page {
@@ -40,7 +40,7 @@
   .rails-default-error-page div.dialog > p {
     margin: 0 0 1em;
     padding: 1em;
-    background-color: #F7F7F7;
+    background-color: #000000;
     border: 1px solid #CCC;
     border-right-color: #999;
     border-left-color: #999;
@@ -48,7 +48,7 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border-top-color: #DADADA;
-    color: #666;
+    color: rgb(226, 40, 40);
     box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
   }
   </style>
@@ -58,10 +58,12 @@
   <!-- This file lives in public/404.html -->
   <div class="dialog">
     <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
+      <h1>Sorry, this page cannot be found.</h1>
+      <p>Try searching all collections in the Carleton University Digital Library.</p>
+      <p>Search all collections <a href="https://digitallibrary-prod1.library.carleton.ca/catalog">here.</a></p> 
+      
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <img src="/app/assets/images/dratcrow.png" alt="Drat! says the Oh No Crow" >
   </div>
 </body>
 </html>
