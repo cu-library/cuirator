@@ -15,17 +15,14 @@
 <%= presenter.attribute_to_html(:rights_statement, label: t('hyrax.base.show.rights_statement'), render_as: :rights_statement, html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_notes, label: t('hyrax.base.show.rights_notes'), html_dl: true) %>
 <%= presenter.attribute_to_html(:access_rights, label: t('hyrax.base.show.access_rights'), html_dl: true) %>
-<% if can?(:presenter, presenter) && !workflow_restriction?(presenter)%>
-    <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
-<%end%>
-
+<%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
 <%= presenter.attribute_to_html(:date_created, label: t('hyrax.base.show.date_created'), html_dl: true) %>
 <% if can?(:presenter, presenter) && !workflow_restriction?(presenter) %>
-<%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified') + " (Admin only)", html_dl: true) %>
-<%= presenter.attribute_to_html(:date_uploaded, label: "Date Uploaded (Admin only)", html_dl: true) %>
+    <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified') + " (Admin only)", html_dl: true) %>
+    <%= presenter.attribute_to_html(:date_uploaded, label: "Date Uploaded (Admin only)", html_dl: true) %>
 <% if can?(:presenter, presenter) && !workflow_restriction?(presenter) %>
     <%= presenter.attribute_to_html(:internal_note, label: t('hyrax.etd.internal_note'), html_dl: true) %>
+    <%= presenter.attribute_to_html(:agreement, label: t('hyrax.etd.agreement'), html_dl: true, render_as: :agreement) %>
 <%end%>
-<%= presenter.attribute_to_html(:agreement, label: t('hyrax.etd.agreement'), html_dl: true, render_as: :agreement) %>
 <% end %>
 
