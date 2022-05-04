@@ -13,3 +13,7 @@ terms:
   - id: https://digital.library.carleton.ca/concern/works/tt44pm84n
     term: Library and Archives Canada Non-Exclusive Licence
     active: true
+  - id: https://digital.library.carleton.ca/concern/works/ng451h485
+    term: Licence to Carleton University
+    active: true
+    
