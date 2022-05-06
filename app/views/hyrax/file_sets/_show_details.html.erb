@@ -8,7 +8,7 @@
   <dd itemprop="datePublished"><%= @presenter.date_uploaded %></dd>
   <dt><%= t(".date_modified") %></dt>
   <dd itemprop="dateModified"><%= @presenter.date_modified %></dd>
-  <% if can?(:presenter, presenter) && !workflow_restriction?(presenter)%>
+  <% if can?(@presenter) && !workflow_restriction?(presenter)%>
     <dt><%= t(".fixity_check") %></dt>
     <dd><%= @presenter.fixity_check_status %></dd>
   <%end%>

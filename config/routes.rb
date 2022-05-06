@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   concern :oai_provider, BlacklightOaiProvider::Routes.new
 
   mount Bulkrax::Engine, at: '/'
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
     concerns :searchable
   end
   devise_for :users
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+  
   mount Hydra::RoleManagement::Engine => '/'
 
   mount Qa::Engine => '/authorities'
@@ -27,6 +31,7 @@ Rails.application.routes.draw do
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns :exportable
   end
+
 
   resources :bookmarks do
     concerns :exportable
