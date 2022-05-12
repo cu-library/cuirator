@@ -23,6 +23,7 @@ en:
     etd:
       agreement: Agreement(s) (Admin only)
       internal_note: Internal Note(s) (Admin only)
+      
   simple_form:
     hints:
       etd:
@@ -33,6 +34,7 @@ en:
         rights_notes: Contains information about rights held in and over the resource. Include the general rights notes added to ETDs unless other rights information has been provided.
         internal_note: Information about changes to ETDs. Internal notes are displayed to logged-in users with permission to edit ETDs.
         access_rights: Access Rights
+
         
     labels:
       etd:       
@@ -43,5 +45,8 @@ en:
         degree_discipline: Thesis Degree Discipline
         access_rights: Access Rights
         related_url: Related URL
+        description: Description
+        
+        
 
 
