@@ -16,9 +16,7 @@ Rails.application.routes.draw do
     concerns :searchable
   end
   devise_for :users
-  match "/404", to: "errors#not_found", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
-  
+
   mount Hydra::RoleManagement::Engine => '/'
 
   mount Qa::Engine => '/authorities'
@@ -40,5 +38,13 @@ Rails.application.routes.draw do
       delete 'clear'
     end
   end
+
+  match "/404", :to => "errors_#not_found", :via => :all
+  match "/500", :to => "errors_#internal_server_error", :via => :all
+  get '/404', to: "errors#not_found"
+  get '/500', to: "errors#internal_server_error"
+
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
