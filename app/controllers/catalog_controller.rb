@@ -22,8 +22,14 @@ class CatalogController < ApplicationController
 
     config.oai = {
       provider: {
+        repository_name: 'Carleton University Digital Library',
         admin_email: ENV.fetch('CONTACT_EMAIL', 'digital.library@carleton.ca'),
-	record_prefix: 'oai:carletondigitallibrary',
+      	record_prefix: 'oai:carletondigitallibrary',
+      },
+      document: {
+        set_fields: [
+          { label: 'Collection', solr_field: solr_name('member_of_collections', :symbol) }
+        ]
       }
     }
 
