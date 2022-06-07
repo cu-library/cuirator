@@ -54,4 +54,21 @@ class SolrDocument
     self['agreement_tesim']
   end
 
+  # OAI Metadata fields (DC only)
+  field_semantics.merge!(
+    title: "title_tesim",
+    creator: "creator_tesim",
+    subject: "subject_tesim",
+    description: ["description_tesim", "abstract_tesim"],
+    publisher: "publisher_tesim",
+    contributor: "contributor_tesim",
+    date: "date_tesim",
+    type: "resource_type_tesim",
+    identifier: "identifier_tesim",
+    language: "language_tesim",
+    rights: ["rights_statement_tesim", "rights_notes_tesim"],
+    relation: "related_url_tesim",
+    source: "bibliographic_citation_tesim"
+  )
+
 end
