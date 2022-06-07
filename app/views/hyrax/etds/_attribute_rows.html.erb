@@ -14,8 +14,8 @@
 <%= presenter.attribute_to_html(:based_near_label, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, label: t('hyrax.base.show.related_url'), html_dl: true, render_as: :external_link) %>
 <%= presenter.attribute_to_html(:rights_statement, label: t('hyrax.base.show.rights_statement'), render_as: :rights_statement, html_dl: true) %>
-<%= presenter.attribute_to_html(:access_right, label: t('hyrax.base.show.access_rights'), render_as: :description, html_dl: true) %>
-<%= presenter.attribute_to_html(:rights_notes, label: t('hyrax.base.show.rights_notes'), render_as: :description, html_dl: true) %>
+<%= presenter.attribute_to_html(:access_right, label: t('hyrax.base.show.access_rights'), render_as: :external_link, html_dl: true) %>
+<%= presenter.attribute_to_html(:rights_notes, label: t('hyrax.base.show.rights_notes'), render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
 <%= presenter.attribute_to_html(:date_created, label: t('hyrax.base.show.date_created'), html_dl: true) %>
 <% if can?(:presenter, presenter) && !workflow_restriction?(presenter) %>
