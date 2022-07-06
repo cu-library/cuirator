@@ -9,7 +9,10 @@
 # Note if we want to overwrite these method its must be as follow <NameofclassAttributeRenderer> and the name of the file must match
 class DescriptionAttributeRenderer < Hyrax::Renderers::AttributeRenderer
     def attribute_value_to_html(value)
-        simple_format(value)
+        format = simple_format(value)
+        auto_link(format)
+        
     end
 end
+
 
