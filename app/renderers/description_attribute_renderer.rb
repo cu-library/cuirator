@@ -12,6 +12,11 @@ class DescriptionAttributeRenderer < Hyrax::Renderers::AttributeRenderer
         format = simple_format(value)
         auto_link(format)
         
+        if value.include? "|"
+            value.gsub("|", "\n")
+        end
+
+
     end
 end
 
