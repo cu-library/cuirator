@@ -11,12 +11,6 @@ class DescriptionAttributeRenderer < Hyrax::Renderers::AttributeRenderer
     def attribute_value_to_html(value)
         format = simple_format(value)
         auto_link(format)
-        
-        if value.include? "|"
-            value.gsub("|", "\n")
-        end
-
-
     end
 end
 
