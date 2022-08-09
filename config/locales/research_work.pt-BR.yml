@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      research_work:     'fa fa-file-text-o'
+    select_type:
+      research_work:
+        description:        "Research work obras"
+        name:               "Research Work"
