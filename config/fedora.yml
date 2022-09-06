@@ -14,4 +14,4 @@ production:
   url: http://<%= ENV['FCREPO_HOST'] || 'localhost' %>:<%= ENV['FCREPO_PORT'] || 8983 %>/<%= ENV['FCREPO_REST_PATH'] || 'rest' %>
   base_path: <%= ENV['FCREPO_BASE_PATH'] || '/prod' %>
   request:
-    timeout: 300
+    timeout: 900
