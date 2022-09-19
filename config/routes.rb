@@ -38,6 +38,12 @@ Rails.application.routes.draw do
       delete 'clear'
     end
   end
+  
+  authenticate :user, ->(u) { u.admin } do 
+
+	require 'sidekiq/web'
+	mount Sidekiq::Web => '/sidekiq' 
+  end
 
   match "/404", :to => "errors_#not_found", :via => :all
   match "/500", :to => "errors_#internal_server_error", :via => :all
