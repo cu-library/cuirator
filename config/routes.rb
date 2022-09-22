@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
   end
   
-  authenticate :user, ->(u) { u.admin } do 
+  authenticate :user do 
 
 	require 'sidekiq/web'
 	mount Sidekiq::Web => '/sidekiq' 
