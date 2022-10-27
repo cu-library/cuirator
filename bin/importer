@@ -6,7 +6,7 @@ require_relative '../config/environment'
 require 'slop'
 
 def main(opts = {})
-  check_required_params
+  check_required_params(opts)
 
   update = opts[:importer_id].present?
   port = opts[:port].presence
@@ -36,7 +36,7 @@ def main(opts = {})
   puts "#{response.status} - #{response.body.truncate(200)}"
 end
 
-def check_required_params
+def check_required_params(opts)
   if opts[:importer_id].blank? && invalid?(opts)
     puts 'Missing required parameters'
     help
