@@ -33,9 +33,14 @@ Bulkrax.setup do |config|
   #   config.field_mappings = {
   #     "Bulkrax::OaiDcParser" => { **individual field mappings go here*** }
   #   }
+  #
+  # Use split pattern '\||\;' to split any fields that might have values containing Bulkrax default split characters:
+  # : (colon), ; (semicolon) or | (pipe)
+  #
   config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["contributor"] = { from: ["contributor"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
+  config.field_mappings["Bulkrax::CsvParser"]["description"] = { from: ["description"], split: '\||\;' }
   config.field_mappings["Bulkrax::CsvParser"]["keyword"]     = { from: ["keyword"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["subject"]     = { from: ["subject"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["language"]    = { from: ["language"], split: true }
