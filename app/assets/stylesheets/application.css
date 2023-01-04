@@ -16,4 +16,5 @@
  *= require 'bulkrax/application'
  *= require cuirator.scss
  *= require_self
+ *= require cookies_eu
 */

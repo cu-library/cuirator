@@ -86,5 +86,6 @@ group :development, :test do
 end
 
 gem 'riiif', '~> 2.1'
+gem 'cookies_eu'
 
 gem 'willow_sword', github: 'notch8/willow_sword'

@@ -1,0 +1,18 @@
+<% if cookies && cookies['cookie_eu_consented'] != 'true' %>
+  <div class="cookies-eu js-cookies-eu" style="background:#ffffff;max-width:100%;border-top:0px;z-index:9999">
+    <div class="cookies-eu-content-holder" style="padding:10px 20px;">
+      <p style="color:#000000;">
+        <span>
+		This site uses cookies to offer you a better browsing experience. Find out more on <a href="https://carleton.ca/privacy/privacy-notices/website-privacy-notice/">how we use cookies and how you can change your settings</a> 
+        </span>
+      <p>
+    </div>
+    <div class="cookies-eu-button-holder">
+    <button class="cookies-eu-ok js-cookies-eu-ok btn btn-lg" style="background-color:#dcdcdc;color:#0073aa;font-weight:normal;font-size:16px;padding:6px 11px;"> Ok. Got it. </button>
+    <% if defined?(link).present? %>
+      <a href="<%= link %>" class="cookies-eu-link" target="<%= defined?(target).present? ? target : '' %>"> <%= t('cookies_eu.learn_more') %> </a>
+    <% end %>
+    </div>
+  </div>
+<% end %>
+<div>
