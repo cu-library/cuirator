@@ -40,15 +40,15 @@ Bulkrax.setup do |config|
   config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["contributor"] = { from: ["contributor"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: true }
-  config.field_mappings["Bulkrax::CsvParser"]["description"] = { from: ["description"], split: '\||\;' }
+  config.field_mappings["Bulkrax::CsvParser"]["description"] = { from: ["description"], split: '\|||\;' }
   config.field_mappings["Bulkrax::CsvParser"]["keyword"]     = { from: ["keyword"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["subject"]     = { from: ["subject"], split: true }
   config.field_mappings["Bulkrax::CsvParser"]["language"]    = { from: ["language"], split: true }
-  config.field_mappings["Bulkrax::CsvParser"]["identifier"]  = { from: ["identifier"], split: '\||\;' }
-  config.field_mappings["Bulkrax::CsvParser"]["agreement"]  = { from: ["agreement"], split: '\||\;' }
+  config.field_mappings["Bulkrax::CsvParser"]["identifier"]  = { from: ["identifier"], split: '\|||\;' }
+  config.field_mappings["Bulkrax::CsvParser"]["agreement"]  = { from: ["agreement"], split: '\|||\;' }
   config.field_mappings["Bulkrax::CsvParser"]["publisher"]   = { from: ["publisher"], split: true }
-  config.field_mappings["Bulkrax::CsvParser"]["remote_files"] = { from: ["remote_files"], split: '\||\;' }
-  config.field_mappings["Bulkrax::CsvParser"]["internal_note"] = { from: ["internal_note"], split: '\||\;' }
+  config.field_mappings["Bulkrax::CsvParser"]["remote_files"] = { from: ["remote_files"], split: '\|||\;' }
+  config.field_mappings["Bulkrax::CsvParser"]["internal_note"] = { from: ["internal_note"], split: '\|||\;' }
   # Add to, or change existing mappings as follows
   #   e.g. to exclude date
   #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
