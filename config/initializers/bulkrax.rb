@@ -48,7 +48,7 @@ Bulkrax.setup do |config|
   config.field_mappings["Bulkrax::CsvParser"]["publisher"]   = { from: ["publisher"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["remote_files"] = { from: ["remote_files"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["internal_note"] = { from: ["internal_note"], split: '[|]{3}' }
-  config.field_mappings["Bulkrax::CsvParser"]["internal_note"] = { from: ["related_url"], split: '[|]{3}'}
+  config.field_mappings["Bulkrax::CsvParser"]["related_url"] = { from: ["related_url"], split: '[|]{3}'}
   # Add to, or change existing mappings as follows
   #   e.g. to exclude date
   #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
