@@ -22,8 +22,8 @@ class CatalogController < ApplicationController
 
     config.oai = {
       provider: {
-        repository_name: 'Carleton University Digital Library',
-        admin_email: ENV.fetch('CONTACT_EMAIL', 'digital.library@carleton.ca'),
+        repository_name: 'Carleton University Institutional Repository',
+        admin_email: ENV.fetch('CONTACT_EMAIL', 'repository.support@carleton.ca'),
       	record_prefix: 'oai:carletondigitallibrary',
       },
       document: {
