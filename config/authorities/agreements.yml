@@ -1,25 +1,25 @@
 # Agreements accepted during ETD submission process
 # Presence / absence determines public access and distribution over OAI
 terms:
-  - id: https://digital.library.carleton.ca/concern/works/pc289j04q
+  - id: https://repository.library.carleton.ca/concern/works/pc289j04q
     term: Carleton University Thesis Licence Agreement
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/zc77sq08x
+  - id: https://repository.library.carleton.ca/concern/works/zc77sq08x
     term: FIPPA Statement
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/nv9352841
+  - id: https://repository.library.carleton.ca/concern/works/nv9352841
     term: Academic Integrity Statement
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/tt44pm84n
+  - id: https://repository.library.carleton.ca/concern/works/tt44pm84n
     term: Library and Archives Canada Non-Exclusive Licence
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/j9602065z
+  - id: https://repository.library.carleton.ca/concern/works/j9602065z
     term: CURIE Agreement
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/ng451h485
+  - id: https://repository.library.carleton.ca/concern/works/ng451h485
     term: Licence to Carleton University (inactive)
     active: true
-  - id: https://digital.library.carleton.ca/concern/works/4t64gn18r
+  - id: https://repository.library.carleton.ca/concern/works/4t64gn18r
     term: CURVE Submission Agreement (inactive)
     active: true
     
