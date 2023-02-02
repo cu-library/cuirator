@@ -1,0 +1,17 @@
+<%= form_tag search_action_url, method: :get, class: "search-query-form search-form", role: "search" do %>
+  <div class="form-group row">
+    <label class="col-form-label col-sm-3 text-right" for="search-field-header">
+    </label>
+    <div class="input-group" style="height: 40px;padding-top: 10px;">
+      <%= text_field_tag :q, current_search_parameters , class: "q form-control", id: "search-field-header", placeholder: t("hyrax.search.form.q.placeholder") %>
+      
+      <div class="input-group-btn">
+
+        <button type="submit" class="btn btn-primary float-none" id="search-submit-header">
+          <%= t('hyrax.search.button.html') %>
+        </button>
+      </div>
+      
+    </div><!-- /.input-group -->
+  </div><!-- /.form-row -->
+<% end %>
