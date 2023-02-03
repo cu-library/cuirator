@@ -80,6 +80,9 @@ en:
       authenticated:
         note_html: Restrict access to %{institution} users.
         text: "%{institution}"
+    search:
+      form:
+        label: "Search"
   simple_form:
     labels:
       defaults:
