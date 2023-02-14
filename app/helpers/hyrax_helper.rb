@@ -5,7 +5,7 @@ module HyraxHelper
   include Hyrax::HyraxHelperBehavior
 
   def application_name
-    'Carleton University Institutional Repository'
+    return ENV.fetch('HYRAX_APPLICATION_NAME', 'Carleton University Institutional Repository')
   end
 
   def institution_name
