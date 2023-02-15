@@ -8,11 +8,15 @@ module HyraxHelper
     'Carleton University Institutional Repository'
   end
 
+  def header_name
+    return ENV.fetch('HYRAX_HEADER_NAME', 'Institutional Repository')
+  end
+
   def institution_name
     'Carleton University'
   end
 
-  def  institution_name_full 
+  def institution_name_full
     'Carleton University'
   end
 
