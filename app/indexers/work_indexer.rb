@@ -12,7 +12,7 @@ class WorkIndexer < Hyrax::WorkIndexer
   # Uncomment this block if you want to add custom indexing behavior:
   def generate_solr_document
     super.tap do |solr_doc|
-      solr_doc['date_created_year_sim'] = object.date_created.map{|d| d[0,4]}
+      solr_doc['date_created_year_ssim'] = object.date_created.map{|d| d[0,4]}
     end
   end
 end
