@@ -10,6 +10,9 @@ Bulkrax.setup do |config|
   # Default is the first returned by Hyrax.config.curation_concerns
   # config.default_work_type = MyWork
 
+  # Factory Class to use when generating and saving objects
+  config.object_factory = Bulkrax::ObjectFactory
+
   # Path to store pending imports
   # config.import_path = 'tmp/imports'
 
@@ -33,9 +36,6 @@ Bulkrax.setup do |config|
   #   config.field_mappings = {
   #     "Bulkrax::OaiDcParser" => { **individual field mappings go here*** }
   #   }
-  #
-  # Use split pattern '\||\;' to split any fields that might have values containing Bulkrax default split characters:
-  # : (colon), ; (semicolon) or | (pipe)
   #
   config.field_mappings["Bulkrax::CsvParser"]["creator"]     = { from: ["creator"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["contributor"] = { from: ["contributor"], split: '[|]{3}' }
@@ -84,7 +84,16 @@ Bulkrax.setup do |config|
   # is controlled by the active terms in config/authorities/rights_statements.yml
   # Defaults: 'rights_statement' and 'license'
   # config.qa_controlled_properties += ['my_field']
+
+  # Specify the delimiter regular expression for splitting an attribute's values into a multi-value array.
+  # config.multi_value_element_split_on = //\s*[:;|]\s*/.freeze
+
+  # Specify the delimiter for joining an attribute's multi-value array into a string.  Note: the
+  # specific delimeter should likely be present in the multi_value_element_split_on expression.
+  # config.multi_value_element_join_on = ' | '
 end
 
 # Sidebar for hyrax 3+ support
-Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashboard/sidebar/bulkrax_sidebar_additions" if Object.const_defined?(:Hyrax) && ::Hyrax::DashboardController&.respond_to?(:sidebar_partials)
+if Object.const_defined?(:Hyrax) && ::Hyrax::DashboardController&.respond_to?(:sidebar_partials)
+  Hyrax::DashboardController.sidebar_partials[:repository_content] << "hyrax/dashboard/sidebar/bulkrax_sidebar_additions"
+end
