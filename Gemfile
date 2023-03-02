@@ -36,13 +36,13 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'hyrax', '~> 3.4.0'
+gem 'hyrax', '~> 3.5.0'
 gem 'rake'
 gem 'pg'
 gem 'okcomputer'
 gem 'sidekiq'
 gem 'hydra-role-management'
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
+gem 'bulkrax', '~> 5.1.0', git: 'https://github.com/samvera-labs/bulkrax.git'
 gem 'blacklight_oai_provider'
 
 group :development, :test do
