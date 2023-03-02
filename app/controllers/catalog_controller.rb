@@ -91,6 +91,7 @@ class CatalogController < ApplicationController
     config.add_index_field "abstract_tesim", itemprop: 'abstract', helper_method: :iconify_auto_link
     config.add_index_field "degree_tesim", link_to_search: "degree_sim"
     config.add_index_field "degree_discipline_tesim", link_to_search: "degree_discipline_sim"
+    
     config.add_index_field "date_created_tesim", itemprop: 'dateCreated', helper_method: :date_created_facet
 
     # solr fields to be displayed in the show (single result) view

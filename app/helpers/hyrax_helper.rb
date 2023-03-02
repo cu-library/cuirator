@@ -25,13 +25,22 @@ module HyraxHelper
   # Index view helpers
 
   def degree_level_facet(options)
+    
     value = options[:value].first
     label = ::DegreeLevelsService.label(value)
+    
     link_to_facet_term(value, label, 'degree_level_sim')
+
   end
 
   def date_created_facet(options)
-    safe_join(options[:value].map { |value| link_to_facet_term(value, value, "date_created_year_sim") }, ", ")
+    
+    value = options[:value].map
+    date = value.first
+    date = date[0,4]
+  
+    link_to_facet_term(date, value.first, "date_created_year_sim")
+    
   end
 
   def link_to_facet_term(value, label, field)
