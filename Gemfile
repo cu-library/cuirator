@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'hyrax', '~> 3.5.0'
+gem 'redlock', '>= 0.1.2', '< 2.0'
 gem 'rake'
 gem 'pg'
 gem 'okcomputer'
