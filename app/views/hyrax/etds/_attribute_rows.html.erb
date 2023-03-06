@@ -17,7 +17,7 @@
 <%= presenter.attribute_to_html(:access_right, label: t('hyrax.base.show.access_rights'), render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_notes, label: t('hyrax.base.show.rights_notes'), render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
-<%= presenter.attribute_to_html(:date_created, label: t('hyrax.base.show.date_created'), render_as: :year_date) %>
+<%= presenter.attribute_to_html(:date_created, label: t('hyrax.base.show.date_created'), render_as: :year_date, html_dl: true) %>
 <% if can?(:presenter, presenter) && !workflow_restriction?(presenter) %>
     <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified') + " (Admin only)", html_dl: true) %>
     <%= presenter.attribute_to_html(:date_uploaded, label: "Date Uploaded (Admin only)", html_dl: true) %>

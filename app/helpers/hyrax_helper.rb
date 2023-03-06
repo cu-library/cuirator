@@ -36,11 +36,16 @@ module HyraxHelper
   def date_created_facet(options)
     
     value = options[:value].map
+    
     date = value.first
     date = date[0,4]
-  
-    link_to_facet_term(date, value.first, "date_created_year_sim")
-    
+    work_type = options[:document][:has_model_ssim]
+
+    if work_type[0] == "Etd"
+      link_to_facet_term(date, value.first, "date_created_year_ssim")    
+    else
+      safe_join(options[:value].map { |value| link_to_facet_term(value, value, "date_created_year_ssim") }, ", ")
+    end
   end
 
   def link_to_facet_term(value, label, field)
