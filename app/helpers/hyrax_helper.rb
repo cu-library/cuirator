@@ -34,18 +34,13 @@ module HyraxHelper
   end
 
   def date_created_facet(options)
-    
-    value = options[:value].map
-    
-    date = value.first
-    date = date[0,4]
-    work_type = options[:document][:has_model_ssim]
+    # Only one value provided in :has_model_ssim
+    work_type = options[:document][:has_model_ssim].first
 
-    if work_type[0] == "Etd"
-      link_to_facet_term(date, value.first, "date_created_year_ssim")    
-    else
-      safe_join(options[:value].map { |value| link_to_facet_term(value, value, "date_created_year_ssim") }, ", ")
-    end
+    # Date Created field permits multiple values in all work types
+    # Facet value -- should always be a YYYY formatted date
+    # Facet label -- if work type is ETD, should be a YYYY formatted date
+    safe_join(options[:value].map { |value| link_to_facet_term(Date.parse(value).to_formatted_s(:year), (work_type == "Etd") ? Date.parse(value).to_formatted_s(:year) : value, "date_created_year_ssim") }, ", ")
   end
 
   def link_to_facet_term(value, label, field)
