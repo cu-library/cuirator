@@ -1,7 +1,8 @@
 
-class YearDateAttributeRenderer < Hyrax::Renderers::LinkedAttributeRenderer
+class YearDateAttributeRenderer < Hyrax::Renderers::DateAttributeRenderer
       
   def attribute_value_to_html(value)
-    value[0, 4]
+    Date.parse(value).to_formatted_s(:year)
   end
+  
 end

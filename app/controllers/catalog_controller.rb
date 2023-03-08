@@ -61,8 +61,7 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5
     config.add_facet_field "resource_type_sim", limit: 5
-    config.add_facet_field "date_created_year_ssim", limit: 5, label: "Year Created"
-    config.add_facet_field "date_created_year_sim", limit: 5, label: "Date Created"
+    config.add_facet_field "date_created_year_ssim", limit: 5, label: "Date Created"
     config.add_facet_field "creator_sim", limit: 5
     config.add_facet_field "subject_sim", limit: 5
     config.add_facet_field "language_sim", limit: 5, helper_method: :language_term
