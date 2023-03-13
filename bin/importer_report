@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/environment'
+require 'slop'
+require 'csv'
+
+def main(opts = {})
+  check_required_params(opts)
+
+  # Find importer object
+  importer_id = opts[:importer_id]
+  begin
+    importer = Bulkrax::Importer.find(importer_id)
+  rescue ActiveRecord::RecordNotFound
+    puts "No importer found for ID " + importer_id.to_s
+    exit
+  end
+
+  # Report on all entries. If status != "Complete", include error information
+  csv_headers = [ 
+    'entry_id', 
+    'source_id', 
+    'work_type', 
+    'status_message', 
+    'created_at', 
+    'updated_at', 
+    'last_error_at',
+    'last_succeeded_at',
+    'error_class',
+    'error_message'
+   ]
+
+  # Include backtrace if option specified
+  csv_headers.append('error_backtrace') if opts[:backtrace]
+
+  # Rows of CSV data extracted from importer entries
+  entry_data = [] 
+
+  importer.entries.each do |entry|
+    # Start a new row with shared fields
+    entry_csv = [ entry.id.to_s, entry.identifier.to_s, entry.factory_class.to_s ]
+
+    # Get current status for entry
+    entry_current_status = entry.current_status
+
+    # Add status to row
+    entry_csv.append(entry_current_status.status_message.to_s)
+
+    # Add timestamp fields
+    entry_csv.append(entry.created_at.to_s)
+    entry_csv.append(entry.updated_at.to_s)
+    entry_csv.append(entry.last_error_at.to_s)
+    entry_csv.append(entry.last_succeeded_at.to_s)
+
+    # Include error class and message for any entries where status is not "Complete"
+    if entry_current_status.status_message.to_s != "Complete" then
+      entry_csv.append(entry_current_status.error_class.to_s)
+      entry_csv.append(entry_current_status.error_message.to_s)
+
+      # Include backtrace if specified
+      entry_csv.append(entry_current_status.error_backtrace.to_s) if opts[:backtrace]
+    end
+
+    # Add row to data
+    entry_data.append(entry_csv)
+  end
+
+  # Prepend CSV column headers
+  entry_data.prepend(csv_headers)
+
+  # Generate CSV output
+  csv_output = CSV.generate { |csv| entry_data.each { |row| csv << row } }
+
+  # Dump to stdout
+  puts csv_output
+
+end
+
+def check_required_params(opts)
+  if opts[:importer_id].blank? ## && invalid?(opts)
+    puts 'Missing required parameters'
+    help
+  end
+end
+
+# Format the help for the CLI
+def help
+  puts "Report status of Bulkrax importer entries. Failed entries include error class, message, and (optionally) backtrace."
+  puts "bin/importer_report --importer_id 1\n\n"
+  puts "Include error backtrace for failed entries"
+  puts "bin/importer_report --importer_id 1 --backtrace\n\n"
+  exit
+end
+
+options = Slop.parse do |o|
+  o.on '--help', 'Print help' do
+    help
+    exit
+  end
+
+  o.integer '--importer_id', 'Bulkrax importer ID'
+  o.bool '--backtrace', 'Include backtrace for failed entries'
+end
+
+main(options.to_hash)
