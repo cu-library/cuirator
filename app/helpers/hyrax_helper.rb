@@ -40,7 +40,8 @@ module HyraxHelper
     # Date Created field permits multiple values in all work types
     # Facet value -- should always be a YYYY formatted date
     # Facet label -- if work type is ETD, should be a YYYY formatted date
-    safe_join(options[:value].map { |value| link_to_facet_term(Date.parse(value).to_formatted_s(:year), (work_type == "Etd") ? Date.parse(value).to_formatted_s(:year) : value, "date_created_year_ssim") }, ", ")
+    # @todo date parsing
+    safe_join(options[:value].map { |value| link_to_facet_term(value[0,4], (work_type == "Etd") ? value[0,4] : value, "date_created_year_ssim") }, ", ")
   end
 
   def link_to_facet_term(value, label, field)
