@@ -14,7 +14,6 @@
     <meta name="twitter:label2" content="Rights Statement" />
   <% end %>
 
-  <% gscholor = Hyrax::GoogleScholarPresenter.new(@presenter) %>
   <% cuscholar = ::CuiratorGoogleScholarPresenter.new(@presenter) %>
 
   <% if cuscholar.scholarly? %>
@@ -26,16 +25,14 @@
     <meta name="citation_author" content="<%= author %>" />
     <% end %>
 
-    <% byebug %>
-
-    <% if gscholor.publication_date.present? %>
+    <% if cuscholar.publication_date.present? %>
     <% if cuscholar.etd? %>
-    <meta name="citation_publication_date" content="<%= cuscholar.publication_date %>" />
+    <meta name="citation_publication_date" content="<%= cuscholar.etd_publication_date %>" />
     <% else %>
-    <meta name="citation_publication_date" content="<%= gscholor.publication_date %>" />
+    <meta name="citation_publication_date" content="<%= cuscholar.publication_date %>" />
     <% end %>
     <% end %>
-  
+
     <% if cuscholar.pdf_url.present? %>
     <meta name="citation_pdf_url" content="<%= cuscholar.pdf_url %>" />
     <% end %>
@@ -44,11 +41,11 @@
     <meta name="citation_keywords" content="<%= cuscholar.keywords %>" />
     <% end %>
   
-    <% if gscholor.publisher.present? %>
+    <% if cuscholar.publisher.present? %>
     <% if cuscholar.etd? %>
     <meta name="citation_dissertation_institution" content="<%= cuscholar.publisher %>" />
     <% else %>
-    <meta name="citation_publisher" content="<%= gscholor.publisher %>" />
+    <meta name="citation_publisher" content="<%= cuscholar.publisher %>" />
     <% end %>
     <% end %>
 

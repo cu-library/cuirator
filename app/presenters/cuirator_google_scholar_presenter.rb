@@ -11,8 +11,11 @@ class CuiratorGoogleScholarPresenter < Hyrax::GoogleScholarPresenter
     return object.etd? if object.respond_to?(:etd?)
   end
 
-  def publication_date
-    year_date = Array(object.try(:date_created)).first || ''
-    year_date.slice(0, 4)
+  ## 
+  # @return [String] YYYY-formatted publication date
+  def etd_publication_date
+    etd_date = Array(object.try(:date_created)).first || ''
+    etd_date[0,4]
   end
+  
 end
