@@ -11,7 +11,8 @@
           <span class="recent-label">Creator:</span> <%= recent_document.creator&.join('; ') %>
         </p>
         <p class="recent-field">
-          <span class="recent-label">Date Created:</span> <%= recent_document.date_created&.join('; ') %>
+          
+          <span class="recent-label">Date Created:</span> <%= recent_document.date_created.join('').slice(0, 4) %>
         </p>
       </div>
     </div>
