@@ -1,0 +1,119 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/environment'
+require 'slop'
+require 'csv'
+
+def main(opts = {})
+  check_required_params(opts)
+
+  # Find importer object
+  importer_id = opts[:importer_id]
+
+  # Get hostname, if provided
+  hostname = opts[:hostname] ? opts[:hostname].chomp("/") : ""
+
+  begin
+    importer = Bulkrax::Importer.find(importer_id)
+  rescue ActiveRecord::RecordNotFound
+    puts "No importer found for ID " + importer_id.to_s
+    exit
+  end
+  
+  csv_headers = [ "entry_id", "source_identifier", "type", "object_identifier", "object_title", "object_url" ]
+
+  # build a list of CSV records
+  csv_data = []
+
+  # for now, work on slice of 10 entries
+  importer.entries[0..9].each do |entry|
+
+    # Bulkrax Entry ID
+    entry_row = [ entry.id.to_s ]
+
+    # Source identifier
+    entry_row << entry.identifier.to_s
+
+    # Entry type: imported object work type or collection
+    entry_row << entry.factory_class.to_s
+
+    # Get work / collection record
+    imported_object = entry.factory.find
+
+    # Work / collection identifier
+    entry_row << imported_object.id.to_s
+
+    # Work / collection title. Stored as list.
+    entry_row << imported_object.title.join("|").to_s
+
+    # Work / collection URL
+    entry_row << hostname + (
+      entry.factory_class.to_s == 'Collection' ? 
+      Hyrax::Engine.routes.url_helpers.polymorphic_path(imported_object) : 
+      Rails.application.routes.url_helpers.polymorphic_path(imported_object)
+    )
+
+    # Add row to list
+    csv_data << entry_row
+
+    # Add row(s) for each file attached to work. 
+    imported_object.file_sets.each do |file_set|
+
+      # Repeat Bulkrax entry ID and source identifier. Set type as FileSet.
+      file_row = [ entry.id.to_s, entry.identifier.to_s, 'FileSet' ]
+
+      # add file_set id
+      file_row << file_set.id.to_s
+
+      # add file_set filename (title). Stored as list.
+      file_row << file_set.title.join("|").to_s
+
+      # add file_set URL
+      file_row << hostname + Hyrax::Engine.routes.url_helpers.download_path(file_set.id)
+
+      # Add row to list 
+      csv_data << file_row
+    end
+  end
+
+  # Append CSV data to column headers
+  csv_data.prepend(csv_headers)
+
+  # Generate CSV output
+  csv_output = CSV.generate { |csv| csv_data.each { |row| csv << row } }
+
+  # Dump to stdout
+  puts csv_output
+
+end
+
+def check_required_params(opts)
+  if opts[:importer_id].blank? ## && invalid?(opts)
+    puts 'Missing required parameters'
+    help
+  end
+end
+
+# Format the help for the CLI
+def help
+  puts "Outputs source identifier and relative URLs, as CSV data, for each work and file imported by a Bulkrax importer."
+  puts "Options:"
+  puts "--importer_id  Required. Bulkrax importer ID."
+  puts "--hostname     Optional. Hyrax hostname. If included, hostname is prepended to relative URLs."
+  puts ""
+  puts "bin/export_redirects --importer_id 1 --hostname \"https://hyrax-host.org\" \n\n"
+  exit
+end
+
+options = Slop.parse do |o|
+  o.on '--help', 'Print help' do
+    help
+    exit
+  end
+
+  o.integer '--importer_id', 'Bulkrax importer ID'
+  o.string  '--hostname', 'Hyrax hostname'
+end
+
+main(options.to_hash)
