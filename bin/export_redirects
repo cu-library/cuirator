@@ -27,7 +27,7 @@ def main(opts = {})
   csv_data = []
 
   # for now, work on slice of 10 entries
-  importer.entries[0..9].each do |entry|
+  importer.entries.each do |entry|
 
     # Bulkrax Entry ID
     entry_row = [ entry.id.to_s ]
