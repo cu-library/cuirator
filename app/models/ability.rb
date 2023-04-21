@@ -22,16 +22,15 @@ class Ability
     # end
   end
 
-  def can_create_any_work?
+  # Bulkrax importers: limit to admin users
+  def can_import_works?
     current_user.admin?
   end
 
-  def can_import_works?
-    can_create_any_work?
-  end
-
+  # Bulkrax exporters: limit to admin users for now,
+  # consider wider access (e.g., repository-managers) later
   def can_export_works?
-    can_create_any_work?
+    current_user.admin?
   end
 
 end
