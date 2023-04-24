@@ -70,7 +70,7 @@ en:
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     homepage:
       admin_sets:
-        view_all_works: View All Works
+        view_all_works: View all works
       recently_uploaded:
         tab_label: Recently Added
         title: Recently Added
