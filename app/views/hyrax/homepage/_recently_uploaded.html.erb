@@ -1,0 +1,18 @@
+<h2 class="sr-only"><%= t('hyrax.homepage.recently_uploaded.title') %></h2>
+<% if recent_documents.blank? %>
+  <p><%= t('.no_public') %></p>
+<% else %>
+  <div id="recent_docs">
+    <ol class="list-group list-group-striped recent_uploads">
+      <%= render partial: "recent_document", collection: recent_documents %>
+    </ol>
+  </div>
+
+  <ul class="list-inline collection-highlights-list">
+  <li class="list-inline-item">
+    <%= link_to t('hyrax.homepage.admin_sets.view_all_works'),
+                main_app.search_catalog_path(),
+                class: 'btn btn-default' %>
+  </li>
+
+<% end %>
