@@ -26,7 +26,6 @@ def main(opts = {})
   # build a list of CSV records
   csv_data = []
 
-  # for now, work on slice of 10 entries
   importer.entries.each do |entry|
 
     # Bulkrax Entry ID
@@ -38,43 +37,50 @@ def main(opts = {})
     # Entry type: imported object work type or collection
     entry_row << entry.factory_class.to_s
 
-    # Get work / collection record
-    imported_object = entry.factory.find
+    begin
+      # Fetch imported object
+      imported_object = entry.factory.find
 
-    # Work / collection identifier
-    entry_row << imported_object.id.to_s
+      # Work / collection identifier
+      entry_row << imported_object.id.to_s
 
-    # Work / collection title. Stored as list.
-    entry_row << imported_object.title.join("|").to_s
+      # Work / collection title. Stored as list.
+      entry_row << imported_object.title.join("|").to_s
 
-    # Work / collection URL
-    entry_row << hostname + (
-      entry.factory_class.to_s == 'Collection' ? 
-      Hyrax::Engine.routes.url_helpers.polymorphic_path(imported_object) : 
-      Rails.application.routes.url_helpers.polymorphic_path(imported_object)
-    )
+      # Work / collection URL
+      entry_row << hostname + (
+        entry.factory_class.to_s == 'Collection' ? 
+        Hyrax::Engine.routes.url_helpers.polymorphic_path(imported_object) : 
+        Rails.application.routes.url_helpers.polymorphic_path(imported_object)
+      )
 
-    # Add row to list
-    csv_data << entry_row
+      # Add row to list
+      csv_data << entry_row
 
-    # Add row(s) for each file attached to work. 
-    imported_object.file_sets.each do |file_set|
+      # Add row(s) for each file attached to work. 
+      imported_object.file_sets.each do |file_set|
 
-      # Repeat Bulkrax entry ID and source identifier. Set type as FileSet.
-      file_row = [ entry.id.to_s, entry.identifier.to_s, 'FileSet' ]
+        # Repeat Bulkrax entry ID and source identifier. Set type as FileSet.
+        file_row = [ entry.id.to_s, entry.identifier.to_s, 'FileSet' ]
 
-      # add file_set id
-      file_row << file_set.id.to_s
+        # add file_set id
+        file_row << file_set.id.to_s
 
-      # add file_set filename (title). Stored as list.
-      file_row << file_set.title.join("|").to_s
+        # add file_set filename (title). Stored as list.
+        file_row << file_set.title.join("|").to_s
 
-      # add file_set URL
-      file_row << hostname + Hyrax::Engine.routes.url_helpers.download_path(file_set.id)
+        # add file_set URL
+        file_row << hostname + Hyrax::Engine.routes.url_helpers.download_path(file_set.id)
 
-      # Add row to list 
-      csv_data << file_row
+        # Add row to list 
+        csv_data << file_row
+      end
+
+    rescue NoMethodError => e
+      # Import failed for this entry: factory returned nil:nilClass object
+      STDERR.puts("Entry ID " + entry.id.to_s + ": no object found")
     end
+
   end
 
   # Append CSV data to column headers
