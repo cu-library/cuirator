@@ -18,5 +18,15 @@ module Cuirator
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Load override files
+    # see https://edgeguides.rubyonrails.org/engines.html#overriding-models-and-controllers
+    # code from https://github.com/UNC-Libraries/hy-c/blob/main/config/application.rb
+    overrides = "#{Rails.root}/app/overrides"
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").sort.each do |c|
+      Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+    end
   end
 end
