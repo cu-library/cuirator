@@ -49,17 +49,6 @@ module HyraxHelper
     link_to(label, path)
   end
 
-  def contributor_search(options)
-    value = options[:value].first
-    match_data = value.match('^(.+?)\s*(\\(.+?\\))?$')
-    unless match_data.nil?
-      contributor = match_data[1] || ""
-      role = match_data[2] || ""
-      link = link_to_field("all_fields", contributor)
-      link += " " + ERB::Util.h(role) if role
-    end
-  end
-
   # Facet view helpers
 
   def degree_level_term value
