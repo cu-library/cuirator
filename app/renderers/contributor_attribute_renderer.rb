@@ -19,7 +19,7 @@ class ContributorAttributeRenderer < Hyrax::Renderers::LinkedAttributeRenderer
 
         # Link name text to ... 
         link = link_to(ERB::Util.h(contributor_name), search_path(contributor_name))
-        link += " " + ERB::Util.h(contributor_role) if contributor_role
+        link += " " + contributor_role unless contributor_role.empty?
       end
     end
   end
