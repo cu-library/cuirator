@@ -7,6 +7,6 @@ module Hyrax
     self.terms += [:resource_type, :bibliographic_citation]
     # Bulkrax uses the source field to store identifiers used in import/export
     self.terms -= [:source]
-    self.required_fields = [:title, :creator, :resource_type]
+    self.required_fields = [:title, :resource_type]
   end
 end
