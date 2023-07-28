@@ -11,7 +11,7 @@ Bulkrax.setup do |config|
   # config.default_work_type = MyWork
 
   # Factory Class to use when generating and saving objects
-  config.object_factory = Bulkrax::ObjectFactory
+  config.object_factory = Cuirator::ObjectFactory
 
   # Path to store pending imports
   # config.import_path = 'tmp/imports'
@@ -46,6 +46,7 @@ Bulkrax.setup do |config|
   config.field_mappings["Bulkrax::CsvParser"]["identifier"]    = { from: ["identifier"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["agreement"]     = { from: ["agreement"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["publisher"]     = { from: ["publisher"], split: '[|]{3}' }
+  config.field_mappings["Bulkrax::CsvParser"]["based_near"]    = { from: ["based_near"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["remote_files"]  = { from: ["remote_files"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["internal_note"] = { from: ["internal_note"], split: '[|]{3}' }
   config.field_mappings["Bulkrax::CsvParser"]["related_url"]   = { from: ["related_url"], split: '[|]{3}'}
@@ -90,7 +91,7 @@ Bulkrax.setup do |config|
 
   # Specify the delimiter for joining an attribute's multi-value array into a string.  Note: the
   # specific delimeter should likely be present in the multi_value_element_split_on expression.
-  config.multi_value_element_join_on = '|||'
+  config.multi_value_element_join_on = "|||"
 end
 
 # Sidebar for hyrax 3+ support
