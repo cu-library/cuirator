@@ -1,7 +1,7 @@
 module Cuirator
   class ObjectFactory < Bulkrax::ObjectFactory
 
-    # Allow attributes to create Hyrax::ControlledVocabulary::Location 
+    # Allow attributes required to create Hyrax::ControlledVocabulary::Location values
     class_attribute :controlled_vocabulary_attributes,
       default: %i[ based_near_attributes ]
 

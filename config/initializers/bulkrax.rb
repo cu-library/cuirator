@@ -91,7 +91,7 @@ Bulkrax.setup do |config|
 
   # Specify the delimiter for joining an attribute's multi-value array into a string.  Note: the
   # specific delimeter should likely be present in the multi_value_element_split_on expression.
-  config.multi_value_element_join_on = "|||"
+  config.multi_value_element_join_on = '|||'
 end
 
 # Sidebar for hyrax 3+ support
