@@ -1,8 +1,8 @@
-<%= presenter.attribute_to_html(:description, label: t('simple_form.labels.etd.description'), render_as: :description, html_dl: true) %>
+<%= presenter.attribute_to_html(:description, label: t('simple_form.labels.etd.description'), render_as: :block_text, html_dl: true) %>
 <%= presenter.attribute_to_html(:resource_type, label: t('hyrax.base.show.resource_type'), render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :contributor, search_field: 'all_fields', html_dl: true) %>
-<%= presenter.attribute_to_html(:abstract, render_as: :description, html_dl: true) %>
+<%= presenter.attribute_to_html(:abstract, render_as: :block_text, html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:language, render_as: :language, html_dl: true) %>
@@ -21,7 +21,7 @@
 <% if can?(:edit, presenter) && !workflow_restriction?(presenter) %>
     <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified') + " (Admin only)", html_dl: true) %>
     <%= presenter.attribute_to_html(:date_uploaded, label: "Date Uploaded (Admin only)", html_dl: true) %>
-    <%= presenter.attribute_to_html(:internal_note, label: t('hyrax.etd.internal_note'), render_as: :description, html_dl: true) %>
+    <%= presenter.attribute_to_html(:internal_note, label: t('hyrax.etd.internal_note'), render_as: :block_text, html_dl: true) %>
     <%= presenter.attribute_to_html(:agreement, label: t('hyrax.etd.agreement'), html_dl: true, render_as: :agreement) %>
 <% end %>
 
