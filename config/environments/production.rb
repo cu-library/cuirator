@@ -99,5 +99,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
+  # Set default protocol for Rails, Hyrax url helpers
+  Rails.application.routes.default_url_options[:protocol] = 'https'
+  Hyrax::Engine.routes.default_url_options[:protocol] = 'https'
+  
 end
