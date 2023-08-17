@@ -15,13 +15,8 @@
         <% unless recent_document.date_created&.empty? %>
           <p class="recent-field">
             <span class="recent-label">Date Created:</span> 
-            <% if recent_document.human_readable_type == "Etd" %>
-              <%# ETDs are expected to have one date %>
-              <%= recent_document.date_created&.join('').slice(0, 4) %>
-            <% else %>
-              <%# For any other work type, allow multiple dates %>
-              <%= recent_document.date_created&.join("; ") %>
-            <% end %>
+            <%# If Etd, show YYYY dates %>
+            <%= recent_document.human_readable_type == "Etd" ? recent_document.date_created_year&.join(', ') : recent_document.date_created&.join(', ') %>
           </p>
         <% end %>
       </div>
