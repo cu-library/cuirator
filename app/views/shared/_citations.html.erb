@@ -14,49 +14,39 @@
     <meta name="twitter:label2" content="Rights Statement" />
   <% end %>
 
-  <% cuscholar = ::CuiratorGoogleScholarPresenter.new(@presenter) %>
+  <% gscholar = Cuirator::GoogleScholarPresenter.new(@presenter) %>
 
-  <% if cuscholar.scholarly? %>
-  <% content_for(:gscholar_meta) do %>
-    <meta name="description" content="<%= cuscholar.description %>" />
-    <meta name="citation_title" content="<%= cuscholar.title %>" />
-  
-    <% cuscholar.authors.each do |author| %>
-    <meta name="citation_author" content="<%= author %>" />
-    <% end %>
+  <% if gscholar.scholarly? %>
+    <% content_for(:gscholar_meta) do %>
+      <meta name="description" content="<%= gscholar.description %>" />
+      <meta name="citation_title" content="<%= gscholar.title %>" />
+    
+      <% gscholar.authors.each do |author| %>
+        <meta name="citation_author" content="<%= author %>" />
+      <% end %>
 
-    <% if cuscholar.publication_date.present? %>
-    <% if cuscholar.etd? %>
-    <meta name="citation_publication_date" content="<%= cuscholar.etd_publication_date %>" />
-    <% else %>
-    <meta name="citation_publication_date" content="<%= cuscholar.publication_date %>" />
-    <% end %>
-    <% end %>
+      <% if gscholar.publication_date.present? %>
+        <meta name="citation_publication_date" content="<%= gscholar.work_type == "Etd" ?  gscholar.publication_date_year : gscholar.publication_date %>" />
+      <% end %>
 
-    <% if cuscholar.pdf_url.present? %>
-    <meta name="citation_pdf_url" content="<%= cuscholar.pdf_url %>" />
-    <% end %>
-  
-    <% if cuscholar.keywords.present? %>
-    <meta name="citation_keywords" content="<%= cuscholar.keywords %>" />
-    <% end %>
-  
-    <% if cuscholar.publisher.present? %>
-    <% if cuscholar.etd? %>
-    <meta name="citation_dissertation_institution" content="<%= cuscholar.publisher %>" />
-    <% else %>
-    <meta name="citation_publisher" content="<%= cuscholar.publisher %>" />
-    <% end %>
-    <% end %>
+      <% if gscholar.pdf_url.present? %>
+        <meta name="citation_pdf_url" content="<%= gscholar.pdf_url %>" />
+      <% end %>
+    
+      <% if gscholar.keywords.present? %>
+        <meta name="citation_keywords" content="<%= gscholar.keywords %>" />
+      <% end %>
 
+      <% if gscholar.publisher.present? %>
+        <meta name="<%= gscholar.work_type == "Etd" ? "citation_dissertation_institution" : "citation_publisher" %>" content="<%= gscholar.publisher %>" />
+      <% end %>
 
-    <!-- Hyrax does not yet support these metadata -->
-    <!--
-      <meta name="citation_journal_title" content=""/>
-      <meta name="citation_volume" content=""/>
-      <meta name="citation_issue" content=""/>
-      <meta name="citation_firstpage" content=""/>
-      <meta name="citation_lastpage" content=""/>
-    -->
-  <% end %>
+      <%# Hyrax does not yet support these metadata
+        <meta name="citation_journal_title" content=""/>
+        <meta name="citation_volume" content=""/>
+        <meta name="citation_issue" content=""/>
+        <meta name="citation_firstpage" content=""/>
+        <meta name="citation_lastpage" content=""/>
+      %>
+    <% end %>
   <% end %>
