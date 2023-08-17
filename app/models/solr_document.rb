@@ -28,12 +28,17 @@ class SolrDocument
 
   use_extension( Hydra::ContentNegotiation )
 
-  # Get citation field for Work worktype
+  # Get YYYY date created for all work types
+  def date_created_year
+    self['date_created_year_ssim']
+  end
+
+  # Get citation field for Work, Research Work work types
   def bibliographic_citation
     self['bibliographic_citation_tesim']
   end
 
-  # Get degree fields for ETD worktype
+  # Get degree fields for ETD work type
   def degree_level
     self['degree_level_tesim']
   end
