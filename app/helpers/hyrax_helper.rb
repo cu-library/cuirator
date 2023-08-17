@@ -37,11 +37,15 @@ module HyraxHelper
     # Only one value provided in :has_model_ssim
     work_type = options[:document][:has_model_ssim].first
 
-    # Date Created field permits multiple values in all work types
-    # Facet value -- should always be a YYYY formatted date
-    # Facet label -- if work type is ETD, should be a YYYY formatted date
-    # @todo date parsing
-    safe_join(options[:value].map { |value| link_to_facet_term(value[0,4], (work_type == "Etd") ? value[0,4] : value, "date_created_year_ssim") }, ", ")
+    # Date Created facets on YYYY-formatted dates indexed in date_created_year_ssim
+    # Create facet link:
+    # Facet value -- always be a YYYY formatted date; use helper to parse YYYY date
+    # Facet label -- if ETD, use helper to parse YYYY date; otherwise, show value as-is
+    facet_links = options[:value].map do |value|
+      year = date_created_year(value)
+      link_to_facet_term(year, work_type == "Etd" ? year : value, "date_created_year_ssim")
+    end
+    safe_join(facet_links, ", ")
   end
 
   def link_to_facet_term(value, label, field)
