@@ -9,10 +9,15 @@ class WorkIndexer < Hyrax::WorkIndexer
   # this behavior
   include Hyrax::IndexesLinkedMetadata
 
+  # Use date parsing helper in HyraxHelper
+  include HyraxHelper
+
   # Uncomment this block if you want to add custom indexing behavior:
   def generate_solr_document
     super.tap do |solr_doc|
-      solr_doc['date_created_year_ssim'] = object.date_created.map{|d| d[0,4]}
+      solr_doc['date_created_year_ssim'] = object.date_created.map { |value| date_created_year(value) }
     end
   end
 end
+
+
