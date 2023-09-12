@@ -59,7 +59,18 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5
+    # config.add_facet_field "member_of_collections_ssim", limit: 5
+
+    # Configure fields used in pivot facet
+    # Collection: single = true, to allow max. 1 parent collection to be selected
+    config.add_facet_field "member_of_parent_collections_ssim", label: "Collection", single: true, show: false
+
+    # Subcollection: single = false (default) to allow multiple sub-collections to be applied as filters
+    config.add_facet_field "member_of_subcollections_ssim", label: "Subcollection", show: false
+
+    # Set collapse = false to show all collections / subcollections
+    # Add collapsing = true after upgrade to BL v7+ to add expand/collapse options for each outer facet
+    config.add_facet_field "Collections", pivot: ["member_of_parent_collections_ssim", "member_of_subcollections_ssim"], collapse: false
     config.add_facet_field "resource_type_sim", limit: 5
     config.add_facet_field "date_created_year_ssim", limit: 5, label: "Date Created"
     config.add_facet_field "creator_sim", limit: 5
