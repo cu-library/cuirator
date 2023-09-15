@@ -22,7 +22,6 @@ class WorkIndexer < Hyrax::WorkIndexer
       solr_doc = index_parent_collections(solr_doc)
     end
   end
-
 end
 
 
