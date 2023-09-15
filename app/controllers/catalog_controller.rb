@@ -59,7 +59,20 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5
+ 
+    # Solr fields added to index to support pivot facet on top-level collections, subcollections:
+    # member_of_parent_collections_ssim, member_of_subcollections_ssim
+    #
+    # After upgrading to Hyrax v4 w/ Blacklight 7, add pivot facet w/ collapsing facets:
+    # config.add_facet_field "Collections", pivot: ["member_of_parent_collections_ssim", "member_of_subcollections_ssim"], collapse: false, collapsing: true
+    # 
+    # For pivot facet to be applied as filters, individual facets may need to be added but not shown. 
+    # Test after upgrade.  See https://github.com/projectblacklight/blacklight/issues/2463.
+    # config.add_facet_field "member_of_subcollections_ssim", label: "Subcollection", show: false
+    # config.add_facet_field "member_of_parent_collections_ssim", label: "Collection", single: true, show: false
+    # 
+    # Until upgrade to Hyrax v4, configure Collections facet to show top-level collections only:
+    config.add_facet_field "member_of_parent_collections_ssim", limit: 5, label: "Collections"
     config.add_facet_field "resource_type_sim", limit: 5
     config.add_facet_field "date_created_year_ssim", limit: 5, label: "Date Created"
     config.add_facet_field "creator_sim", limit: 5
