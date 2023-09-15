@@ -1,3 +1,12 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 User-agent: SemrushBot
 Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
