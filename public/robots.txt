@@ -10,3 +10,30 @@ Disallow: /
 
 User-agent: GPTBot
 Disallow: /
+
+# this should prevent scraping from AI on the repository
+User-Agent: *
+Disallow: /
+
+User-Agent: omgilibot
+Disallow: /
+
+User-Agent: omgili
+Disallow: /
+
+User-Agent: thehive
+Disallow: /
+
+User-Agent: diffbot
+Disallow: /
+
+User-agent: Owler@ows.eu/1
+Disallow: /
+
+User-agent: owler@ows.eu/X
+Disallow: /
+
+user-agent: owler@ows.eu/2
+Disallow: /
+
+
