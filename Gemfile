@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.7.6'
+ruby '~> 2.7.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4', '>= 5.2.4.5'
+gem 'rails', '~> 6.0.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 5'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -34,16 +34,16 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootstrap', '~> 4.0'
 
-gem 'hyrax', '~> 3.5.0'
+gem 'hyrax', '~> 4.0'
 gem 'redlock', '>= 0.1.2', '< 2.0'
 gem 'rake'
 gem 'pg'
 gem 'okcomputer'
 gem 'sidekiq'
 gem 'hydra-role-management'
-gem 'bulkrax', '~> 5.1.0', git: 'https://github.com/samvera-labs/bulkrax.git'
+gem 'bulkrax', '~> 5.1.0', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v5.1.0'
 gem 'blacklight_oai_provider'
 
 group :development, :test do
