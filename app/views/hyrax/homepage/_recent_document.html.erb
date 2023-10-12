@@ -4,21 +4,25 @@
         <span class="sr-only"><%= t('hyrax.homepage.recently_uploaded.document.title_label') %></span>
         <h3>
           <%= link_to [main_app, recent_document] do %>
-            <%= render_thumbnail_tag(recent_document, {width: 90, alt: "#{recent_document} #{ t('hyrax.homepage.admin_sets.thumbnail')}" }, {suppress_link: true}) %><%= recent_document %>
+            <%= document_presenter(recent_document)&.thumbnail&.thumbnail_tag(
+              { width: 90, alt: "#{recent_document} #{ t('hyrax.homepage.admin_sets.thumbnail')}" },
+              { suppress_link: true }
+            ) %><%= recent_document %>
           <% end %>
         </h3>
         <% unless recent_document.creator&.empty? %>
           <p class="recent-field">
-            <span class="recent-label">Creator:</span> <%= recent_document.creator&.join('; ') %>
+            <span class="recent-label">Creator:</span> <%= link_to_facet_list(recent_document.creator, 'creator', '').html_safe %>
           </p>
         <% end %>
+        <% byebug %>
         <% unless recent_document.date_created&.empty? %>
           <p class="recent-field">
-            <span class="recent-label">Date Created:</span> 
-            <%# If Etd, show YYYY dates %>
-            <%= recent_document.human_readable_type == "Etd" ? recent_document.date_created_year&.join(', ') : recent_document.date_created&.join(', ') %>
+            <span class="recent-label">Date Created:</span>
+            <%= link_to_facet_list(recent_document.human_readable_type  == "Etd" ? recent_document.date_created_year : recent_document.date_created, 'date_created_year', '').html_safe %>
           </p>
         <% end %>
       </div>
     </div>
 </li>
+
