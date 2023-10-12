@@ -15,7 +15,6 @@
             <span class="recent-label">Creator:</span> <%= link_to_facet_list(recent_document.creator, 'creator', '').html_safe %>
           </p>
         <% end %>
-        <% byebug %>
         <% unless recent_document.date_created&.empty? %>
           <p class="recent-field">
             <span class="recent-label">Date Created:</span>
