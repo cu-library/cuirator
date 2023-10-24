@@ -355,7 +355,6 @@ GEM
       tilt
     hashie (5.0.0)
     hiredis (0.6.3)
-    hosts (0.1.1)
     htmlentities (4.3.4)
     http (5.1.1)
       addressable (~> 2.8)
@@ -989,7 +988,6 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.6)
   fcrepo_wrapper
-  host
   hydra-role-management
   hyrax (~> 3.5.0)
   jbuilder (~> 2.5)
