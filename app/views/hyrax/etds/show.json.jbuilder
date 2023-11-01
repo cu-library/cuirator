@@ -1,5 +1,4 @@
 # Overridden to filter out ETD fields shown in public JSON response
-# source, and index fields configured in app/controllers/catalog_controller.rb
 # frozen_string_literal: true
 @curation_concern = Wings::ActiveFedoraConverter.convert(resource: @curation_concern) if
   @curation_concern.is_a? Hyrax::Resource
