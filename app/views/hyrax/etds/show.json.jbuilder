@@ -1,3 +1,4 @@
+# Overridden to filter out ETD fields shown in public JSON response
 # frozen_string_literal: true
 @curation_concern = Wings::ActiveFedoraConverter.convert(resource: @curation_concern) if
   @curation_concern.is_a? Hyrax::Resource
