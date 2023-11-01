@@ -14,14 +14,19 @@ module Hyrax
     end
     
     def filtered_graph
-      # Filter admin-only properties from RDF responses
-      RDF::Graph.new.insert(*graph.each_statement.to_a.reject { 
-        |statement|
-        statement.predicate.ends_with?("purl.org/ontology/bibo/Note") ||               # internal note
-        statement.predicate.ends_with?("schema.org/license") ||                        # student agreement
-        statement.predicate.ends_with?("digital.library.carleton.ca/ns#agreement") ||  # old predicate
-        statement.predicate.ends_with?("digital.library.carleton.ca/ns#internal_note") # ditto
-      })   
+      if current_ability.can?(:write, id)
+        # provide full graph
+        graph
+      else
+        # Filter admin-only properties from RDF responses
+        RDF::Graph.new.insert(*graph.each_statement.to_a.reject { 
+          |statement|
+          statement.predicate.ends_with?("purl.org/ontology/bibo/Note") || # internal note
+          statement.predicate.ends_with?("schema.org/license") ||          # student agreement
+          statement.predicate.ends_with?("digital.library.carleton.ca/ns#agreement") ||  # ETD - old predicate
+          statement.predicate.ends_with?("digital.library.carleton.ca/ns#internal_note") # ditto          
+        })   
+      end
     end
 
     def export_as_nt
