@@ -1,0 +1,11 @@
+# Configure repository features 
+# See hyrax/config/features.rb for default settings
+
+# Until self-deposit is supported, allow passive acceptance of
+# agreement by repository admins on behalf of faculty depositors
+active_deposit_agreement_acceptance:
+  enabled: false
+
+# Do not show any information about private files on public works
+hide_private_items:
+  enabled: true
