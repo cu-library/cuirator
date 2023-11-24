@@ -20,6 +20,12 @@ module HyraxHelper
     'Carleton University'
   end
 
+  # Available translations in locale picker
+  # Locale picker not displayed if only 1 translation available
+  def available_translations
+    { 'en' => 'English' }
+  end
+
   # Blacklight helper_methods
 
   # Index view helpers
