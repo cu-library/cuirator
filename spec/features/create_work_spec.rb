@@ -1,12 +1,11 @@
 require 'rails_helper'
-# include Warden::Test::Helpers
 
 RSpec.feature 'Create a work', js: true do
 
   context 'as an admin user' do
     # attributes for admin user seeded in db
     let(:user_attributes) do
-      { email: 'admin@example.com', password: 'admin_password' }
+      { email: 'admin_user@example.com', password: 'admin_password' }
     end
 
     # Rquired metadata

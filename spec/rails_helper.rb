@@ -73,27 +73,12 @@ RSpec.configure do |config|
 
   # Set up environment before running tests
   config.before(:suite) do
+    # Drop, create, and migrate db, then load seeds
     Rails.application.load_tasks
     Rake::Task['db:reset'].invoke
 
-    # reset Fedora and Solr
+    # Reset Fedora and Solr
     ActiveFedora::Cleaner.clean!
-
-    # create default admin set
-    Rake::Task['hyrax:default_admin_set:create'].invoke
-
-    # Create admin role, admin user, and no-auth users
-    # For now, use methods in hyrax/app/utils/hyrax/test_data_seeders/user_seeder.rb
-    # Although we may need to create users & roles directly, when testing Library roles
-
-    # In hyrax-v3.5.0 branch, admin role must exist before generating admin user
-    # Changes in hyrax-v4.0.0 branch will make this step unnecessary
-    # See https://github.com/samvera/hyrax/blob/hyrax-v3.5.0/app/utils/hyrax/test_data_seeders/user_seeder.rb#L28
-    # vs https://github.com/samvera/hyrax/blob/hyrax-v4.0.0/app/utils/hyrax/test_data_seeders/user_seeder.rb#L28
-    admin_role ||= Role.find_or_create_by(name: Hyrax.config.admin_user_group_name)
-
-    # Generate admin & basic users
-    Hyrax::TestDataSeeders::UserSeeder.generate_seeds
   end
 
 end
