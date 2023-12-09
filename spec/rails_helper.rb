@@ -73,12 +73,12 @@ RSpec.configure do |config|
 
   # Set up environment before running tests
   config.before(:suite) do
+    # Reset Fedora and Solr
+    ActiveFedora::Cleaner.clean!
+
     # Drop, create, and migrate db, then load seeds
     Rails.application.load_tasks
     Rake::Task['db:reset'].invoke
-
-    # Reset Fedora and Solr
-    ActiveFedora::Cleaner.clean!
   end
 
 end
