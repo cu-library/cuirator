@@ -4,8 +4,9 @@
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 # Load admin set
-admin_set_id = AdminSet.find_or_create_default_admin_set_id
-# @todo add library-staff group as managers on default admin setn
+Hyrax::AdminSetCreateService.find_or_create_default_admin_set
+# @todo add library-staff group as managers on default admin set
+# @todo remove registered users as depositors on default admin set
 
 # Create roles
 admin_role = Role.find_or_create_by(name: Hyrax.config.admin_user_group_name)
