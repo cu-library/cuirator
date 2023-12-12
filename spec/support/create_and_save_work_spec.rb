@@ -21,7 +21,13 @@ RSpec.shared_examples 'Create and save work' do
     expect(page).to have_content "Dashboard"
 
     # Visit page to create a new work
-    visit '/concern/works/new'
+    click_link "Works"
+    expect(page).to have_content "Add New Work"
+
+    # Choose generic Work type
+    click_on "Add New Work"
+    choose "payload_concern", option: "Work"
+    click_button "Create work"
     expect(page).to have_content "Add New Work"
 
     # Switch to Files tab
