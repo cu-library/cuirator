@@ -10,6 +10,8 @@ RSpec.feature 'Create a work', js: true do
   let(:creator) { "Surname, Given Name" }
   let(:date_created) { "2023-11-30" }
   let(:abstract) { "An abstract is a brief summary of the work." }
+  let(:language) { "English" }
+  let(:identifier) { "DOI: https://doi.org/10.22215/1234" }
 
   context 'as an admin user' do
     # attributes for admin user seeded in db

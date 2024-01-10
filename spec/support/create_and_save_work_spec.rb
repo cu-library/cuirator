@@ -53,6 +53,8 @@ RSpec.shared_examples 'Create and save work' do
     fill_in("Creator", with: creator)      
     fill_in("Date Created", with: date_created)
     fill_in("Abstract", with: abstract)
+    select language, from: 'Language'
+    fill_in('Identifier', with: identifier)
 
     # Set work visibility Public
     choose('work_visibility_open')
@@ -78,6 +80,8 @@ RSpec.shared_examples 'Create and save work' do
     expect(page).to have_content creator
     expect(page).to have_content date_created
     expect(page).to have_content abstract
+    expect(page).to have_content language
+    expect(page).to have_content identifier
 
     # Log out user
     visit '/users/sign_out'
