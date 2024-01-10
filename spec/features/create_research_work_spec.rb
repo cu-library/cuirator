@@ -1,11 +1,9 @@
-# Generated via
-#  `rails generate hyrax:work ResearchWork`
 require 'rails_helper'
 
 RSpec.feature 'Create a ResearchWork', js: true do
 
   # Rquired metadata
-  let(:work_title) { 'Create a generic work ' + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
+  let(:work_title) { 'Create a research work ' + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
   let(:creator) { 'Surname, Given Name' }
   let(:resource_type) { 'Article' }
 
@@ -124,7 +122,5 @@ RSpec.feature 'Create a ResearchWork', js: true do
       visit '/users/sign_out'
       expect(page).to have_content "Signed out successfully"
     end
-
   end
-
 end
