@@ -113,8 +113,6 @@ RSpec.feature 'Create an Etd', js: true do
         click_on('Add another Agreement(s) (Admin only)') unless agreement == agreement.last
       end
 
-      save_screenshot
-
       # Set work visibility
       choose('etd_visibility_open')
 
