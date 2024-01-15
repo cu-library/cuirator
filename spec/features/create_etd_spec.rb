@@ -152,11 +152,4 @@ RSpec.feature 'Create an Etd', js: true do
       expect(page).to have_content "Signed out successfully"
     end
   end
-
-  context 'as a logged-in user' do
-    scenario do
-      skip 'test that internal metadata are not visilble to basic / unauth users'
-    end
-  end
-
 end
