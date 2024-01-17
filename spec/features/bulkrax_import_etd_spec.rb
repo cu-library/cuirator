@@ -47,17 +47,17 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
 
     before { login_as admin_user }
 
-    # scenario 'can view importers in Dashboard' do
-    #   visit '/dashboard'
-    #   within '.sidebar' do
-    #     expect(page).to have_content 'Importers'
-    #   end
+    scenario 'can view importers in Dashboard' do
+      visit '/dashboard'
+      within '.sidebar' do
+        expect(page).to have_content 'Importers'
+      end
 
-    #   visit '/importers'
-    #   within '.main-header' do
-    #     expect(page).to have_content 'Importers'
-    #   end
-    # end
+      visit '/importers'
+      within '.main-header' do
+        expect(page).to have_content 'Importers'
+      end
+    end
 
     scenario 'can create and run an importer' do
       visit '/importers'
