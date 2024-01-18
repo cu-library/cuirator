@@ -2,22 +2,8 @@ RSpec.shared_examples 'Create and save work' do
 
   # Shared scenario for admin & library-staff users to create a work
   scenario do
-    # Navigate to login page
-    visit '/users/sign_in'
-    expect(page).to have_content "Log in"
-
-    # Clear the cookie notice & confirm it's no longer visible
-    # Otherwise, the new work's save button is not available to receive a click
-    expect(page).to have_content "This site uses cookies"
-    click_button "Ok. Got it."
-    expect(page).not_to have_content "This site uses cookies"
-
-    # Fill in username & password
-    fill_in("Email", with: user_attributes[:email] )      
-    fill_in("Password", with: user_attributes[:password])
-    click_on("Log in")
-
-    # Confirm logged-in user has view of Dashboard
+    # Navigate to the Dashboard
+    visit '/dashboard'
     expect(page).to have_content "Dashboard"
 
     # Visit page to create a new work

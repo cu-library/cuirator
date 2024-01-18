@@ -1,4 +1,5 @@
 require 'rails_helper'
+include Warden::Test::Helpers
 
 RSpec.feature 'Create a work', js: true do
 
@@ -14,37 +15,26 @@ RSpec.feature 'Create a work', js: true do
   let(:identifier) { "DOI: https://doi.org/10.22215/1234" }
 
   context 'as an admin user' do
-    # attributes for admin user seeded in db
-    let(:user_attributes) { {email: 'admin_user@example.com', password: 'admin_password'} }
+    # admin user seeded in db
+    let(:admin_user) { User.find_by(email: 'admin_user@example.com') }
+    before { login_as admin_user }
     include_examples 'Create and save work'
   end
 
   context 'as a Library staff user' do
-    # attributes for staff user seeded in db
-    let(:user_attributes) { {email: 'staff_user@example.com', password: 'staff_password'} }
+    # staff user seeded in db
+    let(:staff_user) { User.find_by(email: 'staff_user@example.com') }
+    before { login_as staff_user }
     include_examples 'Create and save work'
   end
 
   context 'not permitted as a basic user' do
-    let(:user_attributes) { {email: 'basic_user@example.com', password: 'basic_password'} }
+    let(:basic_user) { User.find_by(email: 'basic_user@example.com') }
+    before { login_as basic_user }
 
     scenario do
-      # Navigate to login page
-      visit '/users/sign_in'
-      expect(page).to have_content "Log in"
-
-      # Clear the cookie notice & confirm it's no longer visible
-      # Otherwise, the new work's save button is not available to receive a click
-      expect(page).to have_content "This site uses cookies"
-      click_button "Ok. Got it."
-      expect(page).not_to have_content "This site uses cookies"
-
-      # Fill in username & password
-      fill_in("Email", with: user_attributes[:email] )      
-      fill_in("Password", with: user_attributes[:password])
-      click_on("Log in")
-
-      # Confirm logged-in user has view of Dashboard
+      # Navigate to the Dashboard
+      visit '/dashboard'
       expect(page).to have_content "Dashboard"
 
       # Confirm logged-in user doesn't have option to create a new work
