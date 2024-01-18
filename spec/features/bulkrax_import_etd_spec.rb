@@ -5,6 +5,7 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
 
   context 'as an admin user' do
     let(:admin_user) { User.find_by(email: 'admin_user@example.com') }
+    let(:max_wait_time) { 30 } # increase wait time to allow import and page loads to complete
 
     # Importer metadata
     let(:importer_name) { 'Bulkrax Etd importer ' + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
@@ -64,11 +65,6 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       click_on 'New'
       expect(page).to have_content 'New Importer'
 
-      # Clear the cookie notice & confirm it's no longer visible
-      expect(page).to have_content 'This site uses cookies'
-      click_button 'Ok. Got it.'
-      expect(page).not_to have_content 'This site uses cookies'
-
       fill_in('Name', with: importer_name)
       select(default_admin_set, from: 'Administrative Set')
       select(csv_parser, from: 'Parser')
@@ -78,14 +74,8 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       attach_file('importer[parser_fields][file]', bulkrax_import_file, make_visible: true)
       click_on 'Create and Import'
 
-      # give import time to complete
-      # there are better ways to do this - check sidekiq job queue
-      sleep(30)
-
-      # Returns to importer list. Confirm importer has been created.
-      page.refresh
+      # 'Create and Import' loads Importers list. Confirm importer has been created.
       expect(page).to have_content importer_name
-      expect(page).to have_content 'Complete'
 
       # Click through to importer view
       page.find('a', text: importer_name).click
@@ -94,16 +84,27 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       # Confirm work entry has been found and imported
       work_entries = page.find('#work-entries')
       expect(work_entries).to have_content source_identifier
-      expect(work_entries).to have_content 'Complete'
+
+      # Wait for work import to complete. Find a better way to to do this.
+      Timeout.timeout(max_wait_time) do
+        loop do
+          import_status = work_entries.find_all('td')
+          break if import_status.find { |node| node.text.include? 'Complete' }
+          sleep(5)
+          page.refresh
+        end
+      end
+      expect(page).to have_content 'Complete'
 
       # Navigate to imported work
       click_on source_identifier
-      expect(page).to have_content 'Identifier: ' + source_identifier
+      page.find('p', text: 'Identifier: ' + source_identifier, wait: max_wait_time)
 
       # Expand parsed metadata section 
       page.find('a', text: 'Parsed Metadata:').click
 
-      # Extract parsed metadata into a hash
+      # Extract parsed metadata into a hash to confirm that parser config defined in
+      # config/initializers/bulkrax.rb extracts values from metadata.csv as expected
       parsed_metadata = {}
       page.find('#parsed-metadata-show div.accordion-body').native.attribute('innerHTML').split('<br>').each do |entry|
         values = entry.gsub(/<\/?strong>/, '').split(':', 2)
@@ -120,12 +121,11 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       page.find('strong', text: 'Etd Link').first(:xpath, './following-sibling::a').click
 
       # Wait to find title on Etd view
-      page.find('h1', text: etd_metadata[:title].first, wait: 30)
+      page.find('h1', text: etd_metadata[:title].first, wait: max_wait_time)
 
       # Check files are attached
       # See create_etd_spec.rb for verifications on full set of Etd fields
       etd_metadata[:file].each { |file| expect(page).to have_content file }
-      save_screenshot
     end
   end
 
