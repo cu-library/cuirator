@@ -1,68 +1,50 @@
-# Generated via
-#  `rails generate hyrax:work Work`
 require 'rails_helper'
 include Warden::Test::Helpers
 
-# NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a Work', js: false do
-  context 'a logged in user' do
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
-    let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
-    end
-    let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
-    let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-    let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
+RSpec.feature 'Create a work', js: true do
 
-    before do
-      # Create a single action that can be taken
-      Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
+  # Rquired metadata
+  let(:work_title) { "Create a generic work " + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
+  let(:resource_type) { "Report" }
 
-      # Grant the user access to deposit into the admin set.
-      Hyrax::PermissionTemplateAccess.create!(
-        permission_template_id: permission_template.id,
-        agent_type: 'user',
-        agent_id: user.user_key,
-        access: 'deposit'
-      )
-      login_as user
-    end
+  # Optional metadata
+  let(:creator) { "Surname, Given Name" }
+  let(:date_created) { "2023-11-30" }
+  let(:abstract) { "An abstract is a brief summary of the work." }
+  let(:language) { "English" }
+  let(:identifier) { "DOI: https://doi.org/10.22215/1234" }
+
+  context 'as an admin user' do
+    # admin user seeded in db
+    let(:admin_user) { User.find_by(email: 'admin_user@example.com') }
+    before { login_as admin_user }
+    include_examples 'Create and save work'
+  end
+
+  context 'as a Library staff user' do
+    # staff user seeded in db
+    let(:staff_user) { User.find_by(email: 'staff_user@example.com') }
+    before { login_as staff_user }
+    include_examples 'Create and save work'
+  end
+
+  context 'not permitted as a basic user' do
+    let(:basic_user) { User.find_by(email: 'basic_user@example.com') }
+    before { login_as basic_user }
 
     scenario do
+      # Navigate to the Dashboard
       visit '/dashboard'
+      expect(page).to have_content "Dashboard"
+
+      # Confirm logged-in user doesn't have option to create a new work
       click_link "Works"
-      click_link "Add new work"
+      expect(page).not_to have_content "Add New Work"
 
-      # If you generate more than one work uncomment these lines
-      # choose "payload_concern", option: "Work"
-      # click_button "Create work"
-
-      expect(page).to have_content "Add New Work"
-      click_link "Files" # switch tab
-      expect(page).to have_content "Add files"
-      expect(page).to have_content "Add folder"
-      within('div#add-files') do
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/image.jp2", visible: false)
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/jp2_fits.xml", visible: false)
-      end
-      click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
-      select('In Copyright', from: 'Rights statement')
-
-      # With selenium and the chrome driver, focus remains on the
-      # select box. Click outside the box so the next line can't find
-      # its element
-      find('body').click
-      choose('work_visibility_open')
-      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      check('agreement')
-
-      click_on('Save')
-      expect(page).to have_content('My Test Work')
-      expect(page).to have_content "Your files are being processed by Hyrax in the background."
+      # Log out user
+      visit '/users/sign_out'
+      expect(page).to have_content "Signed out successfully"
     end
   end
+
 end

@@ -1,70 +1,119 @@
-# Generated via
-#  `rails generate hyrax:work ResearchWork`
 require 'rails_helper'
 include Warden::Test::Helpers
 
-# NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a ResearchWork', js: false do
-  context 'a logged in user' do
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
-    let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
-    end
-    let(:admin_set_id) { Hyrax::AdminSetCreateService.find_or_create_default_admin_set.id.to_s }
-    let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-    let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
+RSpec.feature 'Create a ResearchWork', js: true do
 
-    before do
-      # Create a single action that can be taken
-      Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
+  # Rquired metadata
+  let(:work_title) { 'Create a research work ' + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
+  let(:creator) { 'Surname, Given Name' }
+  let(:resource_type) { 'Article' }
 
-      # Grant the user access to deposit into the admin set.
-      Hyrax::PermissionTemplateAccess.create!(
-        permission_template_id: permission_template.id,
-        agent_type: 'user',
-        agent_id: user.user_key,
-        access: 'deposit'
-      )
-      login_as user
-    end
+    # Optional metadata
+  let(:abstract) { 'An abstract is a brief summary of the work.' }
+  let(:keywords) { ['Keyword', 'Descriptive phrase', 'Research area'] }
+  let(:license) { 'Creative Commons BY Attribution 4.0 International' }
+  let(:rights_notes) { 'Copyright © 2023 the author(s)' }
+  let(:publisher) { 'Research Journal Publisher' }
+  let(:date_created) { '2023-11-30' }
+  let(:language) { 'English' }
+  let(:identifier) { 'DOI: https://doi.org/10.22215/1234' }
+  let(:citation) { "Surname, G. (2023). #{work_title}. #{publisher}. https://doi.org/10.22215/1234" }
+
+  # Context for Library staff user only - create_work_spec.rb confirms
+  # deposit by admin user and no access to deposit works by basic user
+  context 'as a Library staff user' do
+
+    # staff user seeded in db
+    let(:staff_user) { User.find_by(email: 'staff_user@example.com') }
+
+    before { login_as staff_user }
 
     scenario do
-      pending 'Changes may be required for this test to pass.  See TODO in test.'
-
+      # Navigate to the Dashboard
       visit '/dashboard'
-      click_link "Works"
-      click_link "Add new work"
+      expect(page).to have_content 'Dashboard'
 
-      # TODO: If you generate more than one work uncomment these lines
-      # choose "payload_concern", option: "ResearchWork"
-      # click_button "Create work"
+      # Clear the cookie notice -- otherwise, sometimes blocks Save click
+      click_button 'Ok. Got it.' if page.find('div.cookies-eu') 
+      expect(page).not_to have_content 'This site uses cookies'
 
-      expect(page).to have_content "Add New Research work"
-      click_link "Files" # switch tab
-      expect(page).to have_content "Add files"
-      expect(page).to have_content "Add folder"
+      # Visit page to create a new research work
+      click_link 'Works'
+      expect(page).to have_content 'Add New Work'
+
+      # Choose Research Work type
+      click_on 'Add New Work'
+      choose 'payload_concern', option: 'ResearchWork'
+      click_button 'Create work'
+      expect(page).to have_content 'Add New Research Work'
+
+      # Switch to Files tab
+      click_link 'Files'
+      expect(page).to have_content 'Add files'
+
+      # Upload file(s) 
       within('div#add-files') do
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/image.jp2", visible: false)
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/jp2_fits.xml", visible: false)
+        attach_file('files[]', File.join(fixture_path, 'research_work.pdf'), visible: false)
       end
-      click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
-      select('In Copyright', from: 'Rights statement')
 
-      # With selenium and the chrome driver, focus remains on the
-      # select box. Click outside the box so the next line can't find
-      # its element
+      # Add required metadata
+      click_link 'Descriptions'
+      fill_in('Title', with: work_title)
+      fill_in('Creator', with: creator)
+      select(resource_type, from: 'Resource type')
+
+      # With Selenium / Chromedriver, focus remains on the select box. Click
+      # body to move focus outside select box so next element can be found.
       find('body').click
+    
+      # Add optional metadata
+      click_on 'Additional fields'
+      fill_in('Abstract', with: abstract)
+    
+      # Set keyword, then click 'Add another' for each additional entry
+      keywords.each do |keyword|
+        page.all('input.research_work_keyword').last.set(keyword)
+        click_on('Add another Keyword') unless keyword == keywords.last
+      end
+
+      select license, from: 'License'
+      fill_in('Rights notes', with: rights_notes)
+      fill_in('Publisher', with: publisher)
+      fill_in('Date Created', with: date_created)
+      select language, from: 'Language'
+      fill_in('Identifier', with: identifier)
+      fill_in('Citation', with: citation)
+
+      # Set work visibility
       choose('research_work_visibility_open')
-      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
+
+      # Accept deposit agreement
       check('agreement')
 
-      click_on('Save')
-      expect(page).to have_content('My Test Work')
-      expect(page).to have_content "Your files are being processed by Hyrax in the background."
+      click_on("Save")
+
+      # Expect work files to be processing in the background
+      expect(page).to have_content "Your files are being processed"
+  
+      # Required metadata
+      expect(page).to have_content work_title
+      expect(page).to have_content creator
+      expect(page).to have_content resource_type
+  
+      # Optional metadata
+      expect(page).to have_content abstract
+      keywords.each { |keyword| expect(page).to have_content keyword }
+      expect(page).to have_content license
+      expect(page).to have_content rights_notes
+      expect(page).to have_content publisher
+      expect(page).to have_content date_created
+      expect(page).to have_content language
+      expect(page).to have_content identifier 
+      expect(page).to have_content citation
+
+      # Log out user
+      visit '/users/sign_out'
+      expect(page).to have_content "Signed out successfully"
     end
   end
 end
