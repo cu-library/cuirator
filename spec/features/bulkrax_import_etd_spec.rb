@@ -5,7 +5,6 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
 
   context 'as an admin user' do
     let(:admin_user) { User.find_by(email: 'admin_user@example.com') }
-    let(:max_wait_time) { 30 } # increase wait time to allow import and page loads to complete
 
     # Importer metadata
     let(:importer_name) { 'Bulkrax Etd importer ' + Time.new.strftime("%Y-%m-%d %H:%M:%S") }
@@ -86,7 +85,7 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       expect(work_entries).to have_content source_identifier
 
       # Wait for work import to complete. Find a better way to to do this.
-      Timeout.timeout(max_wait_time) do
+      Timeout.timeout(Capybara.default_max_wait_time) do
         loop do
           import_status = work_entries.find_all('td')
           break if import_status.find { |node| node.text.include? 'Complete' }
@@ -98,7 +97,7 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
 
       # Navigate to imported work
       click_on source_identifier
-      page.find('p', text: 'Identifier: ' + source_identifier, wait: max_wait_time)
+      page.find('p', text: 'Identifier: ' + source_identifier)
 
       # Expand parsed metadata section 
       page.find('a', text: 'Parsed Metadata:').click
@@ -121,7 +120,7 @@ RSpec.feature 'Import a Work with Bulkrax', js: true do
       page.find('strong', text: 'Etd Link').first(:xpath, './following-sibling::a').click
 
       # Wait to find title on Etd view
-      page.find('h1', text: etd_metadata[:title].first, wait: max_wait_time)
+      page.find('h1', text: etd_metadata[:title].first)
 
       # Check files are attached
       # See create_etd_spec.rb for verifications on full set of Etd fields

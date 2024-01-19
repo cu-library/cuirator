@@ -16,13 +16,16 @@
   Capybara.register_driver :headless_chrome do |app|
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    options.add_argument('--window-size=1280,1600')
+    options.add_argument('--window-size=1280,4800')
 
     driver = Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end
 
   Capybara.javascript_driver = :headless_chrome
 
+  # Increase default max wait time
+  Capybara.default_max_wait_time = 30
+  
   # Set webdriver log level
   # Webdrivers.logger.level = :DEBUG
 
