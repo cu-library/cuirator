@@ -3,6 +3,11 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Import a Work with Bulkrax', js: true do
 
+  # This is an ok first pass & walks through the user interaction w/ Bulkrax
+  # to confirm metadata values are parsed from the CSV as expected
+  # For a better approach, see
+  #    https://github.com/UNC-Libraries/hy-c/blob/main/spec/models/bulkrax/csv_entry_spec.rb
+
   context 'as an admin user' do
     let(:admin_user) { User.find_by(email: 'admin_user@example.com') }
 
