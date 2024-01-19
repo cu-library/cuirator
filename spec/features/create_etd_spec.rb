@@ -46,6 +46,10 @@ RSpec.feature 'Create an Etd', js: true do
       visit '/dashboard'
       expect(page).to have_content 'Dashboard'
 
+      # Clear the cookie notice -- otherwise, sometimes blocks Save click
+      click_button 'Ok. Got it.' if page.find('div.cookies-eu') 
+      expect(page).not_to have_content 'This site uses cookies'
+
       # Visit page to create a new Etd
       click_link 'Works'
       expect(page).to have_content 'Add New Work'
