@@ -109,9 +109,7 @@ RSpec.feature 'Create an Etd', js: true do
       # Set work visibility
       choose('etd_visibility_open')
 
-      # Accept deposit agreement
-      check('agreement')
-
+      # Save Etd. Deposit agreement is configured for passive acceptance.
       click_on("Save")
 
       # Expect work files to be processing in the background

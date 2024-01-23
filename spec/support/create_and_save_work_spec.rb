@@ -46,17 +46,15 @@ RSpec.shared_examples 'Create and save work' do
     select language, from: 'Language'
     fill_in('Identifier', with: identifier)
 
-    # Set work visibility Public
+    # Set work visibility Public 
     choose('work_visibility_open')
-
-    # Accept deposit agreement 
-    check('agreement')
 
     # Uncomment to help debug flaky tests (visible elements not found, not clickable, etc.)
     # puts "Required metadata: #{page.evaluate_script(%{$('#form-progress').data('save_work_control').requiredFields.areComplete})}"
     # puts "Required files: #{page.evaluate_script(%{$('#form-progress').data('save_work_control').uploads.hasFiles})}"
     # puts "Agreement: #{page.evaluate_script(%{$('#form-progress').data('save_work_control').depositAgreement.isAccepted})}"
 
+    # Save work. Deposit agreement is configured for passive acceptance.
     click_on("Save")
 
     # Expect work files to be processing in the background
