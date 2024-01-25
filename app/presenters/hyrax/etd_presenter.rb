@@ -10,11 +10,11 @@ module Hyrax
         agreement
         internal_note
       ]
-      current_ability.can?(:write, id) ? [] : json_properties
+      current_ability.can?(:edit, id) ? [] : json_properties
     end
     
     def filtered_graph
-      if current_ability.can?(:write, id)
+      if current_ability.can?(:edit, id)
         # provide full graph
         graph
       else
