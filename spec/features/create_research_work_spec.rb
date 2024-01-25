@@ -87,9 +87,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
       # Set work visibility
       choose('research_work_visibility_open')
 
-      # Accept deposit agreement
-      check('agreement')
-
+      # Save work. Deposit agreement is configured for passive acceptance.
       click_on("Save")
 
       # Expect work files to be processing in the background

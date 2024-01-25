@@ -72,6 +72,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # Use FactoryBot to create test objects
+  config.include FactoryBot::Syntax::Methods
+
   # Set up environment before running tests
   config.before(:suite) do
     # Reset Fedora and Solr
