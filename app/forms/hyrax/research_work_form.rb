@@ -4,7 +4,7 @@ module Hyrax
   # Generated form for ResearchWork
   class ResearchWorkForm < Hyrax::Forms::WorkForm
     self.model_class = ::ResearchWork
-    self.terms += [:resource_type, :bibliographic_citation]
+    self.terms += [:resource_type]
 
     # Bulkrax uses source field to store identifiers used in
     # import / export jobs. Bulkrax identifiers should only
