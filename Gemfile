@@ -92,3 +92,4 @@ end
 gem 'riiif', '~> 2.1'
 gem 'cookies_eu'
 gem 'willow_sword', github: 'notch8/willow_sword'
+gem 'connection_pool', '~> 2.4', '>= 2.4.1'
