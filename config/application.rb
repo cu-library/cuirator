@@ -18,6 +18,7 @@ module Cuirator
     config.i18n.default_locale = :en
 
     # Handle unsupported locales in application controller
+    # Currently, only default locale :en is supported. Add to list to support additional locales.
    config.i18n.available_locales = [ I18n.default_locale ]
 
     # Settings in config/environments/* take precedence over those specified here.
