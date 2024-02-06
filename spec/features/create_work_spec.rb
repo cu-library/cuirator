@@ -13,6 +13,7 @@ RSpec.feature 'Create a work', js: true do
   let(:abstract) { "An abstract is a brief summary of the work." }
   let(:language) { "English" }
   let(:identifier) { "DOI: https://doi.org/10.22215/1234" }
+  let(:citation) { "Surname, G. (2023). #{work_title}. Publishing Co., Ltd. https://doi.org/10.22215/1234" }
 
   context 'as an admin user' do
     # admin user seeded in db

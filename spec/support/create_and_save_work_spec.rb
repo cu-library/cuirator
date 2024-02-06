@@ -45,6 +45,7 @@ RSpec.shared_examples 'Create and save work' do
     fill_in("Abstract", with: abstract)
     select language, from: 'Language'
     fill_in('Identifier', with: identifier)
+    fill_in('Citation', with: citation)
 
     # Set work visibility Public 
     choose('work_visibility_open')
@@ -70,6 +71,7 @@ RSpec.shared_examples 'Create and save work' do
     expect(page).to have_content abstract
     expect(page).to have_content language
     expect(page).to have_content identifier
+    expect(page).to have_content citation
 
     # Log out user
     visit '/users/sign_out'
