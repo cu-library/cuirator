@@ -1034,6 +1034,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
+  connection_pool (~> 2.4, >= 2.4.1)
   cookies_eu
   devise
   devise-guests (~> 0.6)
