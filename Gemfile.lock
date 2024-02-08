@@ -1030,7 +1030,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0)
   bootstrap-sass (~> 3.0)
-  bulkrax (~> 5.1.0)!
+  bulkrax (~> 5.4.1)!
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
