@@ -1,7 +1,7 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Import a Work with Bulkrax', js: true do
+RSpec.feature 'Import an Etd with Bulkrax', js: true do
 
   # This is an ok first pass & walks through the user interaction w/ Bulkrax
   # to confirm metadata values are parsed from the CSV as expected

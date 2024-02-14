@@ -29,7 +29,7 @@ module Bulkrax::HasLocalProcessing
   
         # add remaining URIs to based_near_attributes
         geonames_uris.each_with_index do |value, i|
-          parsed_metadata["based_near_attributes"][i] = { "id" => value }
+          parsed_metadata["based_near_attributes"][i.to_s] = { "id" => value }
         end
       end
     end
