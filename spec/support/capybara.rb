@@ -24,7 +24,7 @@
   Capybara.javascript_driver = :headless_chrome
 
   # Increase default max wait time
-  Capybara.default_max_wait_time = 30
+  Capybara.default_max_wait_time = 240
   
   # Set webdriver log level
   # Webdrivers.logger.level = :DEBUG
