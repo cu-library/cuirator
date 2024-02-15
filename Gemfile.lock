@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: a7690ed70f7f0f65a090617a62a06113561680cf
-  tag: v5.1.0
+  revision: 52c51434992793caae6d0358b21609a322c37b95
+  tag: v6.0.1
   specs:
-    bulkrax (5.1.0)
+    bulkrax (6.0.1)
       bagit (~> 0.4)
       coderay
       iso8601 (~> 0.9.0)
@@ -1030,7 +1030,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0)
   bootstrap-sass (~> 3.0)
-  bulkrax (~> 5.1.0)!
+  bulkrax (~> 6.0.1)!
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
@@ -1073,4 +1073,4 @@ RUBY VERSION
    ruby 2.7.8p225
 
 BUNDLED WITH
-   2.4.20
+   2.4.8

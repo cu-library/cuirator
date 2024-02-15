@@ -44,7 +44,7 @@ gem 'pg'
 gem 'okcomputer'
 gem 'sidekiq'
 gem 'hydra-role-management'
-gem 'bulkrax', '~> 5.1.0', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v5.1.0'
+gem 'bulkrax', '~> 6.0.1', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v6.0.1'
 gem 'blacklight_oai_provider'
 
 group :development, :test do
