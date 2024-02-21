@@ -9,3 +9,7 @@ body {
   -webkit-filter: none;
   filter: none;
 }
+// ... and float images in Explore Collections tab
+.collection-highlights img {
+  float: left;
+}
