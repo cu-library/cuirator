@@ -109,7 +109,10 @@ RSpec.feature 'Create an Etd', js: true do
       # Set work visibility
       choose('etd_visibility_open')
 
-      # Save Etd. Deposit agreement is configured for passive acceptance.
+      # Accept deposit agreement, if configured for active acceptance
+      check('agreement') if Flipflop::FeatureSet.current.enabled?(:active_deposit_agreement_acceptance)
+
+      # Save work
       click_on("Save")
 
       # Expect work files to be processing in the background
