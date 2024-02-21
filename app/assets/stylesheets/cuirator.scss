@@ -13,3 +13,25 @@ body {
 .collection-highlights img {
   float: left;
 }
+
+// Restore Bootstrap v3 styles to fix pagination
+// until templates / markup updated upstream
+// See https://github.com/samvera/hyrax/issues/6684
+.pagination>li {
+  display: inline
+}
+.pagination > li > a, .pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.428571429;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.page-item.active .page-link {
+  background-color: #2e74b2;
+  border-color: #2e74b2;
+}
