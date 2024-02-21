@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 include Warden::Test::Helpers
 
 RSpec.feature 'Create a ResearchWork', js: true do
@@ -87,7 +88,10 @@ RSpec.feature 'Create a ResearchWork', js: true do
       # Set work visibility
       choose('research_work_visibility_open')
 
-      # Save work. Deposit agreement is configured for passive acceptance.
+      # Accept deposit agreement, if configured for active acceptance
+      check('agreement') if Flipflop::FeatureSet.current.enabled?(:active_deposit_agreement_acceptance)
+
+      # Save work
       click_on("Save")
 
       # Expect work files to be processing in the background

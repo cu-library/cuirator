@@ -55,7 +55,10 @@ RSpec.shared_examples 'Create and save work' do
     # puts "Required files: #{page.evaluate_script(%{$('#form-progress').data('save_work_control').uploads.hasFiles})}"
     # puts "Agreement: #{page.evaluate_script(%{$('#form-progress').data('save_work_control').depositAgreement.isAccepted})}"
 
-    # Save work. Deposit agreement is configured for passive acceptance.
+    # Accept deposit agreement, if configured for active acceptance
+    check('agreement') if Flipflop::FeatureSet.current.enabled?(:active_deposit_agreement_acceptance)
+
+    # Save work
     click_on("Save")
 
     # Expect work files to be processing in the background
