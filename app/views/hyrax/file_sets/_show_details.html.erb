@@ -1,5 +1,11 @@
 <h2><%= t(".file_details") %></h2>
 <dl class="file-show-term file-show-details">
+  <% if can?(:edit, @presenter) && !workflow_restriction?(@presenter) %>
+    <div class="row">
+      <dt class="col-5"><%= t(".depositor") %></dt>
+      <dd class="col-7" itemprop="accountablePerson" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><%= @presenter.depositor %></span></dd>
+    </div>
+  <% end %>
   <div class="row">
     <dt class="col-5"><%= t(".date_uploaded") %></dt>
     <dd class="col-7" itemprop="datePublished"><%= @presenter.date_uploaded %></dd>
