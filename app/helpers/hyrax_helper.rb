@@ -26,6 +26,15 @@ module HyraxHelper
     { 'en' => 'English' }
   end
 
+  # Override app/helpers/hyrax/hyrax_helper_behavior.rb:render_notifications
+  # Fall back to default locale if locale parameter not supported
+  # @param [User] user
+  def render_notifications(user:)
+    params[:locale] = I18n.default_locale.to_s if params[:locale].nil?
+    params[:locale] = I18n.default_locale.to_s unless Rails.application.config.i18n.available_locales.include?(params[:locale].to_sym)
+    super
+  end
+
   # Blacklight helper_methods
 
   # Index view helpers
