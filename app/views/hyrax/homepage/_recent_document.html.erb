@@ -18,7 +18,8 @@
         <% unless recent_document.date_created&.empty? %>
           <p class="recent-field">
             <span class="recent-label">Date Created:</span>
-            <%= link_to_facet_list(recent_document.human_readable_type  == "Etd" ? recent_document.date_created_year : recent_document.date_created, 'date_created_year', '').html_safe %>
+            <%  labels = recent_document.human_readable_type  == "Etd" ? recent_document.date_created_year : recent_document.date_created %>
+            <%= link_to_facet_term(recent_document.date_created_year.first, labels.first, 'date_created_year_ssim') %>
           </p>
         <% end %>
       </div>
