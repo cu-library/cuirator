@@ -19,11 +19,14 @@ class CatalogController < ApplicationController
     config.view.gallery!.document_component = Blacklight::Gallery::DocumentComponent
     config.view.masonry!.document_component = Blacklight::Gallery::DocumentComponent
 
+    # OAI configuration
+    # Repository URL is used to include work URLs as identifiers
     config.oai = {
       provider: {
         repository_name: 'Carleton University Institutional Repository',
+        repository_url: ENV.fetch('REPOSITORY_URL', 'https://repository.library.carleton.ca/catalog/oai'),
         admin_email: ENV.fetch('CONTACT_EMAIL', 'repository.support@carleton.ca'),
-      	record_prefix: 'oai:carletondigitallibrary',
+        record_prefix: 'oai:repository.library.carleton.ca',
       },
       document: {
         set_fields: [
