@@ -61,19 +61,39 @@ class SolrDocument
 
   # OAI Metadata fields (DC only)
   field_semantics.merge!(
-    title: "title_tesim",
-    creator: "creator_tesim",
-    subject: "subject_tesim",
-    description: ["description_tesim", "abstract_tesim"],
-    publisher: "publisher_tesim",
-    contributor: "contributor_tesim",
-    date: "date_tesim",
-    type: "resource_type_tesim",
-    identifier: "identifier_tesim",
-    language: "language_tesim",
-    rights: ["rights_statement_tesim", "rights_notes_tesim"],
-    relation: "related_url_tesim",
-    source: "bibliographic_citation_tesim"
+    title: 'title_tesim',
+    creator: 'creator_tesim',
+    contributor: 'contributor_tesim',
+    subject: [ 'subject_tesim', 'keyword_tesim' ],
+    description: [ 'description_tesim', 'abstract_tesim' ],
+    publisher: 'publisher_tesim',
+    type: 'resource_type_tesim',
+    language: 'language_tesim',
+    rights: [ 'license_tesim', 'rights_notes_tesim', 'rights_statement_tesim' ],
+    relation: 'related_url_tesim',
+    # overridden hash keys
+    date: 'oai_date',
+    identifier: [ 'identifier_tesim', 'oai_identifier' ]
   )
+
+  # Override SolrDocument hash access to provide custom values in OAI fields
+  def [](key)
+    return send(key) if ['oai_date', 'oai_identifier'].include?(key)
+    super
+  end
+
+  def oai_date
+    # if ETD, use YYYY date
+    self['has_model_ssim'].first == 'Etd' ? self['date_created_year_ssim'] : self['date_created_tesim']
+  end
+
+  def oai_identifier
+    # Include collection & work URLs in dc:identifier
+    if self['has_model_ssim'].first.to_s == 'Collection'
+      Hyrax::Engine.routes.url_helpers.url_for(only_path: false, action: 'show', host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: 'hyrax/collections', id: id)
+    else
+      Rails.application.routes.url_helpers.url_for(only_path: false, action: 'show', host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: "hyrax/#{self['has_model_ssim'].first.to_s.underscore.pluralize}", id: id)
+    end
+  end
 
 end
