@@ -26,6 +26,7 @@ module Blacklight::Document::Etdms
       :date,
       :type,
       :identifier,
+      :oai_etdms_identifier, # additional identifiers in ETDMS records for LAC
       :language,
       :rights
     ]
@@ -50,7 +51,7 @@ module Blacklight::Document::Etdms
              'xsi:schemaLocation' => %(http://www.ndltd.org/standards/metadata/etdms/1.0/ http://www.ndltd.org/standards/metadata/etdms/1.0/etdms.xsd)) do
       to_semantic_values.select { |field, _values| etdms_field_name? field  }.each do |field, values|
         Array.wrap(values).each do |v|
-          xml.tag! "thesis:#{field}", v
+          xml.tag! "thesis:#{field.to_s.gsub('oai_etdms_', '')}", v
         end
       end
       # add degree-specific field names under <thesis:degree> parent element

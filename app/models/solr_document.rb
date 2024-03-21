@@ -77,16 +77,18 @@ class SolrDocument
     discipline: 'degree_discipline_tesim',
     # ... degree grantor is available from publisher
     grantor: 'publisher_tesim',
-    # ... override hash key for degree level
+    # ... and override hash key for degree level
     level: 'oai_etdms_level',
-    # ... and hash keys for shared elements date and identifier
+    # Override hash keys for shared elements date and identifier
     date: 'oai_date',
-    identifier: [ 'identifier_tesim', 'oai_identifier' ]
+    identifier: [ 'identifier_tesim', 'oai_identifier' ],
+    # ... and create a *special* element to hold file URLs as identifiers in ETDMS records but not DC
+    oai_etdms_identifier: 'oai_etdms_identifier'
   )
 
   # Override SolrDocument hash access to provide custom values in OAI fields
   def [](key)
-    return send(key) if ['oai_etdms_level', 'oai_date', 'oai_identifier'].include?(key)
+    return send(key) if ['oai_etdms_level', 'oai_date', 'oai_identifier', 'oai_etdms_identifier'].include?(key)
     super
   end
 
@@ -107,8 +109,11 @@ class SolrDocument
     else
       Rails.application.routes.url_helpers.url_for(only_path: false, action: 'show', host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: "hyrax/#{self['has_model_ssim'].first.to_s.underscore.pluralize}", id: id)
     end
+  end
 
-    # If ETD, include download URLs for all files
+  def oai_etdms_identifier
+    # OAI ETDMS for LAC requires download URLs for all files in identifier element
+    # File URLs should not be included in OAI-DC. See Blacklight::Document::Etdms for hacky workaround.
     if self['has_model_ssim'].first == 'Etd'
       self['file_set_ids_ssim'].map do |fs_id|
         Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''))
