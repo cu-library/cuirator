@@ -6,11 +6,6 @@
       <dt class="col-5"><%= t(".depositor") %></dt>
       <dd class="col-7" itemprop="accountablePerson" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><%= @presenter.depositor %></span></dd>
     </div>
-     <% if Hyrax.config.analytics? %>
-    <% # turbolinks needs to be turned off or the page will use the cache and the %>
-    <% # analytics graph will not show unless the page is refreshed. %>
-    <% # = link_to t('.analytics'), @presenter.stats_path, id: 'stats', class: 'btn btn-secondary', data: { turbolinks: false } %>
-  <% end %>
   <% end %>
   <div class="row">
     <dt class="col-5"><%= t(".date_uploaded") %></dt>
