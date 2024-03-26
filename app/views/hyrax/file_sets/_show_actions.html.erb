@@ -2,7 +2,7 @@
   <% if Hyrax.config.analytics? %>
     <% # turbolinks needs to be turned off or the page will use the cache and the %>
     <% # analytics graph will not show unless the page is refreshed. %>
-    <%=# link_to t('.analytics'), @presenter.stats_path, id: 'stats', class: 'btn btn-secondary', data: { turbolinks: false } %>
+    <%# link_to t('.analytics'), @presenter.stats_path, id: 'stats', class: 'btn btn-secondary', data: { turbolinks: false } %>
   <% end %>
 
   <% if @presenter.editor? && !workflow_restriction?(@presenter) %>
