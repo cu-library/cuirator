@@ -93,8 +93,8 @@ class SolrDocument
   end
 
   def oai_etdms_level
-    # Provide label for degree level authority. Degree Level allows a single value.
-    ::DegreeLevelsService.label(self['degree_level_tesim'].first)
+    # Provide label for degree level authority. Degree Level is required & allows a single value.
+    ::DegreeLevelsService.label(self['degree_level_tesim'].first) if self['has_model_ssim'].first == 'Etd'
   end
 
   def oai_date
