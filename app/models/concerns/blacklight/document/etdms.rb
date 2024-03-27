@@ -19,23 +19,23 @@ module Blacklight::Document::Etdms
     [
       :title,
       :creator,
-      :contributor,
       :subject,
-      :abstract,
+      :description,
       :publisher,
+      :contributor,
       :date,
       :type,
       :identifier,
-      :oai_etdms_identifier, # additional identifiers in ETDMS records for LAC
+      :oai_etdms_identifier, # additional identifiers in ETDMS records for LAC; see app/models/solr_document.rb
       :language,
       :rights
     ]
   end
 
   def etdms_degree_field_names
-    # elements nested under <degree>
+    # elements nested under <degree>, in order:
     [
-      :name, # <-- this is not good
+      :name,
       :level,
       :discipline,
       :grantor
@@ -49,15 +49,20 @@ module Blacklight::Document::Etdms
              'xmlns:thesis' => "http://www.ndltd.org/standards/metadata/etdms/1.0/",
              'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
              'xsi:schemaLocation' => %(http://www.ndltd.org/standards/metadata/etdms/1.0/ http://www.ndltd.org/standards/metadata/etdms/1.0/etdms.xsd)) do
-      to_semantic_values.select { |field, _values| etdms_field_name? field  }.each do |field, values|
-        Array.wrap(values).each do |v|
+      # fetch semantic values hash
+      semantic_values = to_semantic_values()
+
+      # Order matters. Output DC-ish elements
+      etdms_field_names.each do |field|
+        Array.wrap(semantic_values[field]).each do |v|
           xml.tag! "thesis:#{field.to_s.gsub('oai_etdms_', '')}", v
         end
       end
-      # add degree-specific field names under <thesis:degree> parent element
+
+      # Add degree-specific field names under <thesis:degree> parent element
       xml.tag! 'thesis:degree' do
-        to_semantic_values.select { |field, _values| etdms_degree_field_name? field  }.each do |field, values|
-          Array.wrap(values).each do |v|
+        etdms_degree_field_names.each do |field|
+          Array.wrap(semantic_values[field]).each do |v|
             xml.tag! "thesis:#{field}", v
           end
         end
