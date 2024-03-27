@@ -115,7 +115,7 @@ class SolrDocument
     # OAI ETDMS for LAC requires download URLs for all files in identifier element
     # File URLs should not be included in OAI-DC. See Blacklight::Document::Etdms for hacky workaround.
     if self['has_model_ssim'].first == 'Etd'
-      self['file_set_ids_ssim'].map do |fs_id|
+      self['file_set_ids_ssim']&.map do |fs_id|
         Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''))
       end
     end
