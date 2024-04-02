@@ -8,6 +8,7 @@ RSpec.feature 'Create a work', js: true do
   let(:resource_type) { "Report" }
 
   # Optional metadata
+  let(:alternative_title) {'A title that is alternate to the original'}
   let(:creator) { "Surname, Given Name" }
   let(:date_created) { "2023-11-30" }
   let(:abstract) { "An abstract is a brief summary of the work." }

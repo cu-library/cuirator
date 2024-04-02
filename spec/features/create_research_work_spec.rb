@@ -10,6 +10,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
   let(:resource_type) { 'Article' }
 
     # Optional metadata
+  let(:alternative_title) {'A title that is alternate to the original'}
   let(:abstract) { 'An abstract is a brief summary of the work.' }
   let(:keywords) { ['Keyword', 'Descriptive phrase', 'Research area'] }
   let(:license) { 'Creative Commons BY Attribution 4.0 International' }
@@ -69,6 +70,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
     
       # Add optional metadata
       click_on 'Additional fields'
+      fill_in('Alternative Title', with: alternative_title)
       fill_in('Abstract', with: abstract)
     
       # Set keyword, then click 'Add another' for each additional entry
@@ -103,6 +105,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
       expect(page).to have_content resource_type
   
       # Optional metadata
+      expect(page).to have_content alternative_title
       expect(page).to have_content abstract
       keywords.each { |keyword| expect(page).to have_content keyword }
       expect(page).to have_content license
