@@ -63,6 +63,7 @@ en:
         access_rights: Access Rights 
         rights_statement: Rights Statement
         related_url: Related URL
+        alternative_title: Alternative Title
     directory:
       suffix: "@example.org"
     footer:
