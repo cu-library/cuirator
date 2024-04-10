@@ -35,6 +35,7 @@ en:
         internal_note: Information about changes to ETDs. Internal notes are displayed to logged-in users with permission to edit ETDs.
         access_rights: Access Rights
 
+
         
     labels:
       etd:       
@@ -46,6 +47,8 @@ en:
         access_rights: Access Rights
         related_url: Related URL
         description: Description
+        
+
         
         
 

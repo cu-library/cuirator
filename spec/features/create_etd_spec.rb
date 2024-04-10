@@ -13,6 +13,7 @@ RSpec.feature 'Create an Etd', js: true do
 
   # Optional metadata. Not required to create & save an Etd, although
   # most are typically provided in the automated transfer & deposit
+  let(:alternative_title) {'A title that is alternate to the original'}
   let(:abstract) { 'An abstract is a brief summary of the work.' }
   let(:rights_notes) { 'Copyright © 2023 the author(s).' }
   let(:publisher) { 'Carleton University' }
@@ -84,6 +85,7 @@ RSpec.feature 'Create an Etd', js: true do
 
       # Add optional metadata
       click_on 'Additional fields'
+      fill_in('Alternative Title', with: alternative_title)
       fill_in('Abstract', with: abstract)
       fill_in('Rights notes', with: rights_notes)
       fill_in('Publisher', with: publisher)
@@ -127,6 +129,7 @@ RSpec.feature 'Create an Etd', js: true do
       expect(page).to have_content degree_discipline
 
       # Optional metadata
+      expect(page).to have_content alternative_title
       expect(page).to have_content abstract
       expect(page).to have_content rights_notes
       expect(page).to have_content publisher

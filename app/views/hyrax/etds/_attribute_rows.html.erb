@@ -2,6 +2,7 @@
 <%= presenter.attribute_to_html(:resource_type, label: t('hyrax.base.show.resource_type'), render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :contributor, search_field: 'all_fields', html_dl: true) %>
+<%= presenter.attribute_to_html(:alternative_title, label: t('hyrax.base.show.alternative_title'), html_dl: true) %>
 <%= presenter.attribute_to_html(:abstract, render_as: :block_text, html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
