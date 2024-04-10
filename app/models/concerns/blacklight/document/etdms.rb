@@ -42,6 +42,28 @@ module Blacklight::Document::Etdms
     ] 
   end
 
+  # For valid ETDMS-XML:
+  #   1. Order matters.
+  #   2. The following elements must be present but can be empty. If no values provided, output empty tags.
+  #      - title
+  #      - creator
+  #      - subject
+  #      - type
+  #      - identifier
+  #   3. The following elements must be present and CAN'T be empty. But if no value provided,
+  #      it's a metadata error that needs to be fixed. Provide empty tag & fix on harvesting error.
+  #      - date
+  def etdms_required_field_names
+    [
+      :title,
+      :creator,
+      :subject,
+      :type,
+      :identifier,
+      :date
+    ]
+  end
+
   def export_as_oai_etdms_xml
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_etdms:thesis",
@@ -49,11 +71,15 @@ module Blacklight::Document::Etdms
              'xmlns:thesis' => "http://www.ndltd.org/standards/metadata/etdms/1.0/",
              'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
              'xsi:schemaLocation' => %(http://www.ndltd.org/standards/metadata/etdms/1.0/ http://www.ndltd.org/standards/metadata/etdms/1.0/etdms.xsd)) do
+
       # fetch semantic values hash
       semantic_values = to_semantic_values()
 
-      # Order matters. Output DC-ish elements
       etdms_field_names.each do |field|
+        # provide empty string for required elements
+        semantic_values[field] = '' if field.in?(etdms_required_field_names) and semantic_values[field].empty?
+
+        # Output DC-ish elements
         Array.wrap(semantic_values[field]).each do |v|
           xml.tag! "thesis:#{field.to_s.gsub('oai_etdms_', '')}", v
         end
@@ -74,13 +100,4 @@ module Blacklight::Document::Etdms
   alias_method :export_as_xml, :export_as_oai_etdms_xml
   alias_method :export_as_etdms_xml, :export_as_oai_etdms_xml
 
-  private
-
-  def etdms_field_name? field
-    etdms_field_names.include? field.to_sym
-  end
-
-  def etdms_degree_field_name? field
-    etdms_degree_field_names.include? field.to_sym
-  end
 end
