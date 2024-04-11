@@ -30,7 +30,7 @@ class CatalogController < ApplicationController
       },
       document: {
         set_fields: [
-          { label: 'Collection', solr_field: solr_name('member_of_collections', :symbol) }
+          { label: 'Collection', solr_field: 'member_of_oai_sets_ssim' }
         ]
       }
     }
