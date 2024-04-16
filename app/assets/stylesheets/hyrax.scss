@@ -16,31 +16,6 @@
 @import 'hyrax/hyrax';
 @import 'hyrax/login_signup';
 
-/*.form-group.multi_value label[for="work_title"],
-.form-group.select label[for="work_resource_type"],
-.form-group.multi_value label[for="work_representative_media"],
-.form-group.multi_value label[for="work_thumbnail"],
-.form-group.multi_value label[for="work_alternative_title"],
-.form-group.multi_value label[for="work_contributor"],
-.form-group.multi_value label[for="work_abstract"],
-.form-group.multi_value label[for="work_keyword"],
-.form-group.multi_value label[for="work_license"],
-.form-group.multi_value label[for="work_access_right"],
-.form-group.select label[for="work_rights_statement"],
-.form-group.multi_value label[for="work_rights_notes"],
-.form-group.multi_value label[for="work_publisher"],
-.form-group.multi_value label[for="work_date_created"],
-.form-group.multi_value label[for="work_subject"],
-.form-group.multi_value label[for="work_language"],
-.form-group.multi_value label[for="work_identifier"],
-.form-group.multi_value label[for="work_based_near"],
-.form-group.multi_value label[for="work_related_url"],
-.form-group.multi_value label[for="work_bibliographic_citation"],
-.form-group.multi_value label[for="work_description"],
-.form-group.multi_value label[for="work_creator"]{
-    font-weight: bold
-}*/ 
-
 .form-group.multi_value > label {
     font-weight: bold;
 }
