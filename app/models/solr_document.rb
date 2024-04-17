@@ -113,10 +113,18 @@ class SolrDocument
 
   def oai_etdms_identifier
     # OAI ETDMS for LAC requires download URLs for all files in identifier element
-    # File URLs should not be included in OAI-DC. See Blacklight::Document::Etdms for hacky workaround.
     if self['has_model_ssim'].first == 'Etd'
+      # LAC harvester requires file extensions on download URLs
+      mime_types = { 'application/pdf' => 'pdf', 'application/zip' => 'zip' }
+
       self['file_set_ids_ssim']&.map do |fs_id|
-        Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''))
+        # Provide LAC-understandable download URLs for PDFs and ZIPs
+        fs_mime_type = Hyrax::SolrService.search_by_id(fs_id)['mime_type_ssi']
+        # Warn about anything else
+        Hyrax.logger.warn("SolrDocument::oai_etdmds_identifer - unknown mime type #{fs_mime_type}") unless fs_ext = mime_types[fs_mime_type]
+
+        # Fake a file extension so LAC harvester can recognize file content
+        Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', '')) + ".#{fs_ext}"
       end
     end
   end
