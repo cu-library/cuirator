@@ -15,3 +15,13 @@
 @import "hyrax/blacklight_gallery";
 @import 'hyrax/hyrax';
 @import 'hyrax/login_signup';
+
+.form-group.multi_value > label {
+    font-weight: bold;
+}
+.form-group.select > label {
+    font-weight: bold;
+}
+.form-group.string > label {
+    font-weight: bold;
+}
