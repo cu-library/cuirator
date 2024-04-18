@@ -24,7 +24,7 @@ class SolrDocument
   use_extension(Blacklight::Document::DublinCore)
   use_extension(Blacklight::Document::Etdms)
 
-  # Do content negotiation for AF models. 
+  # Do content negotiation for AF models.
   use_extension( Hydra::ContentNegotiation )
 
   # Get YYYY date created for all work types
@@ -105,27 +105,32 @@ class SolrDocument
   def oai_identifier
     # Include collection & work URLs in dc:identifier
     if self['has_model_ssim'].first.to_s == 'Collection'
-      Hyrax::Engine.routes.url_helpers.url_for(only_path: false, action: 'show', host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: 'hyrax/collections', id: id)
+      Hyrax::Engine.routes.url_helpers.url_for(only_path: false, action: 'show',
+                                               host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: 'hyrax/collections', id: id)
     else
-      Rails.application.routes.url_helpers.url_for(only_path: false, action: 'show', host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: "hyrax/#{self['has_model_ssim'].first.to_s.underscore.pluralize}", id: id)
+      Rails.application.routes.url_helpers.url_for(only_path: false, action: 'show',
+                                                   host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: "hyrax/#{self['has_model_ssim'].first.to_s.underscore.pluralize}", id: id)
     end
   end
 
   def oai_etdms_identifier
     # OAI ETDMS for LAC requires download URLs for all files in identifier element
-    if self['has_model_ssim'].first == 'Etd'
-      # LAC harvester requires file extensions on download URLs
-      mime_types = { 'application/pdf' => 'pdf', 'application/zip' => 'zip' }
+    # Download URLs must include file extension. As a workaround, add file extension
+    # based on mimetype.
+    return unless self['has_model_ssim'].first == 'Etd'
 
-      self['file_set_ids_ssim']&.map do |fs_id|
-        # Provide LAC-understandable download URLs for PDFs and ZIPs
-        fs_mime_type = Hyrax::SolrService.search_by_id(fs_id)['mime_type_ssi']
-        # Warn about anything else
-        Hyrax.logger.warn("SolrDocument::oai_etdmds_identifer - unknown mime type #{fs_mime_type}") unless fs_ext = mime_types[fs_mime_type]
+    # Support PDFs & ZIPs file formats expected in transfer and warn about anything else
+    mime_types = { 'application/pdf' => 'pdf', 'application/zip' => 'zip' }
 
-        # Fake a file extension so LAC harvester can recognize file content
-        Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', '')) + ".#{fs_ext}"
-      end
+    self['file_set_ids_ssim']&.map do |fs_id|
+      # fetch mimetype from Solr
+      fs_mime_type = Hyrax::SolrService.search_by_id(fs_id)['mime_type_ssi']
+
+      fs_ext = mime_types[fs_mime_type] ? ".#{mime_types[fs_mime_type]}" : ''
+      Hyrax.logger.warn("SolrDocument::oai_etdmds_identifer - unknown mime type #{fs_mime_type}") unless fs_ext
+
+      # append extension to download URL
+      Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', '')) + fs_ext
     end
   end
 
