@@ -2,6 +2,6 @@
 #  `rails generate hyrax:work Work`
 module Hyrax
   class WorkPresenter < Hyrax::WorkShowPresenter
-    delegate :bibliographic_citation, :date_created_year, to: :solr_document
+    delegate :bibliographic_citation, :date_created_year, :internal_note, to: :solr_document
   end
 end
