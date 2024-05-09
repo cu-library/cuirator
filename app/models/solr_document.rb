@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SolrDocument
   include Blacklight::Solr::Document
   include BlacklightOaiProvider::SolrDocument
@@ -7,7 +8,6 @@ class SolrDocument
 
   # Adds Hyrax behaviors to the SolrDocument.
   include Hyrax::SolrDocumentBehavior
-
 
   # self.unique_key = 'id'
 
@@ -25,7 +25,7 @@ class SolrDocument
   use_extension(Blacklight::Document::Etdms)
 
   # Do content negotiation for AF models.
-  use_extension( Hydra::ContentNegotiation )
+  use_extension(Hydra::ContentNegotiation)
 
   # Get YYYY date created for all work types
   def date_created_year
@@ -65,12 +65,12 @@ class SolrDocument
     title: 'title_tesim',
     creator: 'creator_tesim',
     contributor: 'contributor_tesim',
-    subject: [ 'subject_tesim', 'keyword_tesim' ],
-    description: [ 'description_tesim', 'abstract_tesim' ],
+    subject: %w[subject_tesim keyword_tesim],
+    description: %w[description_tesim abstract_tesim],
     publisher: 'publisher_tesim',
     type: 'resource_type_tesim',
     language: 'language_tesim',
-    rights: [ 'license_tesim', 'rights_notes_tesim', 'rights_statement_tesim' ],
+    rights: %w[license_tesim rights_notes_tesim rights_statement_tesim],
     relation: 'related_url_tesim',
     # ETDMS-specific elements
     name: 'degree_tesim',
@@ -81,56 +81,66 @@ class SolrDocument
     level: 'oai_etdms_level',
     # Override hash keys for shared elements date and identifier
     date: 'oai_date',
-    identifier: [ 'identifier_tesim', 'oai_identifier' ],
+    identifier: %w[identifier_tesim oai_identifier],
     # ... and create a *special* element to hold file URLs as identifiers in ETDMS records but not DC
     oai_etdms_identifier: 'oai_etdms_identifier'
   )
 
   # Override SolrDocument hash access to provide custom values in OAI fields
   def [](key)
-    return send(key) if ['oai_etdms_level', 'oai_date', 'oai_identifier', 'oai_etdms_identifier'].include?(key)
+    return send(key) if %w[oai_etdms_level oai_date oai_identifier oai_etdms_identifier].include?(key)
+
     super
   end
 
+  # Provide label for degree level authority
   def oai_etdms_level
-    # Provide label for degree level authority. Degree Level is required & allows a single value.
-    ::DegreeLevelsService.label(self['degree_level_tesim'].first) if self['has_model_ssim'].first == 'Etd'
+    return unless self['has_model_ssim'].first == 'Etd'
+
+    # Degree Level is required & allows a single value.
+    ::DegreeLevelsService.label(self['degree_level_tesim'].first)
   end
 
+  # Provide correct date format for different work types
   def oai_date
     # if ETD, use YYYY date
     self['has_model_ssim'].first == 'Etd' ? self['date_created_year_ssim'] : self['date_created_tesim']
   end
 
+  # Include collection & work URLs in dc:identifier
   def oai_identifier
-    # Include collection & work URLs in dc:identifier
-    if self['has_model_ssim'].first.to_s == 'Collection'
-      Hyrax::Engine.routes.url_helpers.url_for(only_path: false, action: 'show',
-                                               host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: 'hyrax/collections', id: id)
+    url_vars = { only_path: false, action: 'show', host: hyrax_host,
+                 controller: "hyrax/#{self['has_model_ssim'].first.underscore.pluralize}",
+                 id: id }
+
+    if self['has_model_ssim'].first == 'Collection'
+      # Return collection URL
+      Hyrax::Engine.routes.url_helpers.url_for(url_vars)
     else
-      Rails.application.routes.url_helpers.url_for(only_path: false, action: 'show',
-                                                   host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', ''), controller: "hyrax/#{self['has_model_ssim'].first.to_s.underscore.pluralize}", id: id)
+      # Return work URL
+      Rails.application.routes.url_helpers.url_for(url_vars)
     end
   end
 
+  # LAC requires OAI-ETDMS requires file download URLs in identifier element.
+  # LAC requiresd download URLs with a file extension. Add file extension based
+  # on mimetype.
   def oai_etdms_identifier
-    # OAI ETDMS for LAC requires download URLs for all files in identifier element
-    # Download URLs must include file extension. As a workaround, add file extension
-    # based on mimetype.
     return unless self['has_model_ssim'].first == 'Etd'
 
     # Support PDFs & ZIPs file formats expected in transfer and warn about anything else
     mime_types = { 'application/pdf' => 'pdf', 'application/zip' => 'zip' }
 
     self['file_set_ids_ssim']&.map do |fs_id|
-      # fetch mimetype from Solr
-      fs_mime_type = Hyrax::SolrService.search_by_id(fs_id)['mime_type_ssi']
+      # Fetch FileSet metadata from Solr
+      fs = Hyrax::SolrService.search_by_id(fs_id)
+      next unless fs['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
 
       fs_ext = mime_types[fs_mime_type] ? ".#{mime_types[fs_mime_type]}" : ''
       Hyrax.logger.warn("SolrDocument::oai_etdmds_identifer - unknown mime type #{fs_mime_type}") unless fs_ext
 
       # append extension to download URL
-      Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', '')) + fs_ext
+      Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: hyrax_host) + fs_ext
     end
   end
 
@@ -140,4 +150,9 @@ class SolrDocument
     export_as(:etdms_xml)
   end
 
+  private
+
+  def hyrax_host
+    CatalogController.blacklight_config.oai[:provider][:repository_url].gsub('/catalog/oai', '')
+  end
 end
