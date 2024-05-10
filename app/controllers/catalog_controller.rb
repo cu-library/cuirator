@@ -75,6 +75,7 @@ class CatalogController < ApplicationController
     config.add_facet_field "date_created_year_ssim", limit: 5, label: "Date Created"
     config.add_facet_field "creator_sim", limit: 5
     config.add_facet_field "subject_sim", limit: 5
+    config.add_facet_field "publisher_sim", limit: 5
     config.add_facet_field "language_sim", limit: 5, helper_method: :language_term
     config.add_facet_field "based_near_label_sim", limit: 5
     config.add_facet_field "degree_level_sim", limit: 5, helper_method: :degree_level_term
@@ -102,6 +103,7 @@ class CatalogController < ApplicationController
     config.add_index_field "abstract_tesim", itemprop: 'abstract', helper_method: :iconify_auto_link
     config.add_index_field "degree_tesim", link_to_search: "degree_sim"
     config.add_index_field "degree_discipline_tesim", link_to_search: "degree_discipline_sim"
+    config.add_index_field "publisher_sim", itemprop: 'publisher', link_to_search: "publisher_sim"
     
     config.add_index_field "date_created_tesim", itemprop: 'dateCreated', helper_method: :date_created_facet
 
