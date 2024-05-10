@@ -15,6 +15,7 @@ RSpec.feature 'Create a work', js: true do
   let(:language) { "English" }
   let(:identifier) { "DOI: https://doi.org/10.22215/1234" }
   let(:citation) { "Surname, G. (2023). #{work_title}. Publishing Co., Ltd. https://doi.org/10.22215/1234" }
+  let(:alternative_title) {'A title that is alternate to the original'}
 
   context 'as an admin user' do
     # admin user seeded in db
@@ -42,7 +43,7 @@ RSpec.feature 'Create a work', js: true do
       # Confirm logged-in user doesn't have option to create a new work
       click_link "Works"
       expect(page).not_to have_content "Add New Work"
-
+      
       # Log out user
       visit '/users/sign_out'
       expect(page).to have_content "Signed out successfully"

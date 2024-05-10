@@ -85,7 +85,7 @@ RSpec.feature 'Create an Etd', js: true do
 
       # Add optional metadata
       click_on 'Additional fields'
-      fill_in('Alternative Title', with: alternative_title)
+      fill_in('Alternative title', with: alternative_title)
       fill_in('Abstract', with: abstract)
       fill_in('Rights notes', with: rights_notes)
       fill_in('Publisher', with: publisher)
@@ -116,7 +116,6 @@ RSpec.feature 'Create an Etd', js: true do
 
       # Save work
       click_on("Save")
-
       # Expect work files to be processing in the background
       expect(page).to have_content "Your files are being processed"
 
