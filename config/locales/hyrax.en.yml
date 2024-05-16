@@ -51,6 +51,7 @@ en:
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
           title_tesim: Title
+          internal_note: Internal Notes(s) (Admin only)
   hyrax:
     account_name: My Institution Account Id
     base:
@@ -90,6 +91,7 @@ en:
     labels:
       defaults:
         bibliographic_citation: Citation
+        internal_note: Internal Note(s) (Admin only)
     hints:
       defaults:
         bibliographic_citation: For submitted manuscript, pre-print, or other form of work that is not the final published version, include any citation information required by the publisher.
@@ -97,3 +99,4 @@ en:
         identifier: 'A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book. Include the type of identifier, e.g., "DOI: https://doi.org/10.22215/etd/2021-14483".'
         source: System-generated identifier used by automated import and export processes.
         date_created: The date on which the work was created. Use YYYY-MM-DD format.
+        internal_note: Information about changes to works. Internal notes are displayed to logged-in users with permission to edit ETDs.

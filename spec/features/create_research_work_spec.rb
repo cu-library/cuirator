@@ -75,7 +75,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
       fill_in('Alternative title', with: alternative_title)
       fill_in('Abstract', with: abstract)
       
-      fill_in('Internal note', with: internal_note)
+      fill_in('Internal Note(s) (Admin only)', with: internal_note)
 
       # Set keyword, then click 'Add another' for each additional entry
       keywords.each do |keyword|
