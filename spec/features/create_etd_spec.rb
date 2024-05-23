@@ -29,7 +29,7 @@ RSpec.feature 'Create an Etd', js: true do
       'Academic Integrity Statement',
       'FIPPA Statement',
       'Carleton University Thesis Licence Agreement',
-      'Library and Archives Canada Non-Exclusive Licence'
+      'Library and Archives Canada Non-Exclusive Licence, 2020-2025'
     ]
   end
 
