@@ -134,13 +134,12 @@ class SolrDocument
     self['file_set_ids_ssim']&.map do |fs_id|
       # Fetch FileSet metadata from Solr
       fs = Hyrax::SolrService.search_by_id(fs_id)
-      next unless fs['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-
-      fs_ext = mime_types[fs_mime_type] ? ".#{mime_types[fs_mime_type]}" : ''
-      Hyrax.logger.warn("SolrDocument::oai_etdmds_identifer - unknown mime type #{fs_mime_type}") unless fs_ext
+      next unless
+        fs['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC &&
+        mime_types.keys.include?(fs['mime_type_ssi'])
 
       # append extension to download URL
-      Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: hyrax_host) + fs_ext
+      Hyrax::Engine.routes.url_helpers.download_url(fs_id, host: hyrax_host) + ".#{mime_types[fs['mime_type_ssi']]}"
     end
   end
 
