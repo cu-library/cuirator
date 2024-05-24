@@ -1,0 +1,9 @@
+<dl class="hyc-collection-metadata">
+  <% @presenter.terms_with_values.each do |field_name| %>
+    <% next if field_name == :size %> <!-- Skip 'size' field until upstream fixes size issue -->
+        <div id=<%= "hyc-collection-metadata-#{field_name}" %>>
+        <dt><%= collection_metadata_label(@presenter, field_name) %></dt>
+        <dd><%= collection_metadata_value(@presenter, field_name) %></dd>
+        </div>
+  <% end %>
+</dl>
