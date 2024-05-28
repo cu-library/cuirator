@@ -7,8 +7,6 @@ module Blacklight
   module Document
     module Etdms
       def self.extended(document)
-        return unless Blacklight::Document::Etdms.can_disseminate_thesis?(document)
-
         Blacklight::Document::Etdms.register_export_formats(document)
       end
 
@@ -16,42 +14,6 @@ module Blacklight
         document.will_export_as(:xml)
         document.will_export_as(:etdms_xml, 'text/xml')
         document.will_export_as(:oai_etdms_xml, 'text/xml')
-      end
-
-      def self.can_disseminate_thesis?(document)
-        return unless Blacklight::Document::Etdms.thesis?(document)
-
-        # check thesis & licence agreements
-        # if there are no agreements, thesis was acquired before automated CURVE
-        # deposit and LAC licence was confirmed before digitization & deposit to IR
-        can_disseminate_thesis ||= !document.keys.include?('agreement_tesim')
-
-        # If agreements ARE present, thesis must be licenced to Carleton AND LAC
-        can_disseminate_thesis ||=
-          Blacklight::Document::Etdms.thesis_licence?(document) &&
-          Blacklight::Document::Etdms.lac_licence?(document)
-
-        # If licenced, thesis can be disseminated for harvesting
-        can_disseminate_thesis
-      end
-
-      def self.thesis?(document)
-        # Check work type: don't rely on resource type
-        document['has_model_ssim']&.include?('Etd')
-      end
-
-      def self.thesis_licence?(document)
-        # Confirm thesis licence agreement -- see config/authorities/agreements.yml
-        # Must have Carleton University Thesis Licence Agreement OR Licence to Carleton University
-        document['agreement_tesim']&.include?('https://repository.library.carleton.ca/concern/works/pc289j04q') ||
-          document['agreement_tesim']&.include?('https://repository.library.carleton.ca/concern/works/ng451h485')
-      end
-
-      def self.lac_licence?(document)
-        # Confirm LAC licence agreement -- see config/authorities/agreements.yml
-        # Must have LAC Non-Exclusive Licence OR LAC Non-Exclusive Licence, 2020-2025
-        document['agreement_tesim']&.include?('https://repository.library.carleton.ca/concern/works/tt44pm84n') ||
-          document['agreement_tesim']&.include?('https://repository.library.carleton.ca/concern/works/6h440t871')
       end
 
       def etdms_field_names
@@ -107,7 +69,7 @@ module Blacklight
 
       def export_as_oai_etdms_xml
         # raises exception on ListRecords verb with metadataPrefix = oai_etdms
-        raise OAI::FormatException unless self.export_formats.include?(:etdms_xml)
+        # raise OAI::FormatException unless self.export_formats.include?(:etdms_xml)
 
         xml = Builder::XmlMarkup.new
         xml.tag!('oai_etdms:thesis',
