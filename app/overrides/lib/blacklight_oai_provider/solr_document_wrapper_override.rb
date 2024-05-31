@@ -33,31 +33,12 @@ BlacklightOaiProvider::SolrDocumentWrapper.class_eval do
   end
 
   def licenced_fq
-    # Published before CURVE automated deposit OR (licenced to Carleton AND LAC)
-    # "(#{pre_curve_fq}) OR (#{carleton_fq} AND #{lac_fq})"
-    # ... but Solr probs -- boolean expr w/ negative clause - see 
-    # https://cwiki.apache.org/confluence/display/solr/FAQ#FAQ-Whydoes'fooAND-baz'matchdocs,but'fooAND(-bar)'doesn't?
-
-    # for now return explicitly-licenced theses
-    "#{carleton_fq} AND #{lac_fq}"
-  end
-
-  def pre_curve_fq
-    # Pre-CURVE theses have no agreements
-    '-agreement_tesim:[* TO *]'
-  end
-
-  def carleton_fq
-    # Author has accepted current / previous CU Thesis Licence Agreement
+    # Filter out any works that have a Carleton University thesis licence
+    # agreement and any of the current / former LAC agreements
     # See config/authorities/agreements.yml
-    '(agreement_tesim:"https://repository.library.carleton.ca/concern/works/pc289j04q" '\
-      'OR agreement_tesim:"https://repository.library.carleton.ca/concern/works/ng451h485")'
-  end
 
-  def lac_fq
-    # Author has accepted current / previous LAC agreement
-    # See config/authorities/agreements.yml
-    '(agreement_tesim:"https://repository.library.carleton.ca/concern/works/6h440t871" ' \
-      'OR agreement_tesim:"https://repository.library.carleton.ca/concern/works/tt44pm84n")'
+    # MUST HAVE either CU TLA, or older Licence to Carleton University
+    # MUST NOT HAVE current (2020-2025) or former (2015-2020) LAC licence
+    '-agreement_tesim:(+(pc289j04q OR ng451h485) -tt44pm84n -6h440t871)'
   end
 end
