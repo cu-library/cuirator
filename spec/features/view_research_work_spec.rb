@@ -2,7 +2,7 @@ require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'View an Research Work', js: true do
-  let(:research_works) { FactoryBot.create(:public_work_with_private_file) }
+  let(:research_works) { FactoryBot.create(:public_research_work_with_private_file) }
 
   context 'as an admin user' do
     # admin user seeded in db
