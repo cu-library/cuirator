@@ -11,7 +11,7 @@ RSpec.describe 'OAI-DC endpoint' do
 
     # Create a public work with extra attributes
     @public_work =
-      FactoryBot.create(:work, :public, {
+      FactoryBot.create(:public_work_with_public_file, {
                           title: ["Public work #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}"],
                           creator: ['Lastname, Given'],
                           contributor: ['Surname, First'],
@@ -77,7 +77,7 @@ RSpec.describe 'OAI-DC endpoint' do
         get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc',
                              identifier: "#{@repository_id}:#{@public_work.id}")
       end
-      it 'includes work URL in dc:identifier' do
+      it 'includes Work URL in dc:identifier' do
         expect(response.body).to include("<dc:identifier>#{@hyrax_host}/concern/works/#{@public_work.id}</dc:identifier>")
       end
       it 'includes Date Created in dc:date with YYYY-MM-DD format' do
@@ -130,8 +130,8 @@ RSpec.describe 'OAI-DC endpoint' do
           # Confirm file URL not present
           # e.g., https://repository.library.carleton.ca/downloads/f1881k888.pdf
           expect(response.body).not_to include(
-            '<thesis:identifier>' \
-            "#{@hyrax_host}/downloads/#{@public_work_private_file.file_set_ids.first}.pdf</thesis:identifier>"
+            '<dc:identifier>' \
+            "#{@hyrax_host}/downloads/#{@public_work_private_file.file_set_ids.first}.pdf</dc:identifier>"
           )
         end
       end

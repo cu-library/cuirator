@@ -118,83 +118,72 @@ RSpec.describe 'OAI-ETDMS endpoint' do
                              identifier: "#{@repository_id}:#{@public_etd.id}")
       end
 
-      it 'has a title' do
+      it 'has a title in thesis:title' do
         expect(response.body).to include("<thesis:title>#{@public_etd.title.first}</thesis:title>")
       end
-      it 'has a creator' do
+      it 'has a creator in thesis:creator' do
         expect(response.body).to include("<thesis:creator>#{@public_etd.creator.first}</thesis:creator>")
       end
-      it 'has type Thesis' do
+      it 'has type Thesis in thesis:type' do
         expect(response.body).to include("<thesis:type>#{@public_etd.resource_type.first}</thesis:type>")
       end
-      it 'has a degree level' do
+      it 'has a degree level in thesis:level' do
         # See config/authorities/degree_levels.yml
         # HyraxHelper::degree_term_level should be moved to ApplicationHelper & used here
         expect(response.body).to include("<thesis:level>#{@public_etd.degree_level == '1' ? "Master's" : 'Doctoral'}</thesis:level>")
       end
-      it 'has a degree name' do
+      it 'has a degree name in thesis:name' do
         expect(response.body).to include("<thesis:name>#{@public_etd.degree}</thesis:name>")
       end
-      it 'has a degree discipline' do
+      it 'has a degree discipline in thesis:discipline' do
         expect(response.body).to include("<thesis:discipline>#{@public_etd.degree_discipline}</thesis:discipline>")
       end
-      it 'has a degree grantor' do
+      it 'has a degree grantor in thesis:grantor' do
         # Publisher (Carleton University) is mapped to degree grantor
         expect(response.body).to include("<thesis:grantor>#{@public_etd.publisher.first}</thesis:grantor>")
       end
-      it 'has a contributor' do
+      it 'has a contributor in thesis:contributor' do
         expect(response.body).to include("<thesis:contributor>#{@public_etd.contributor.first}</thesis:contributor>")
       end
-      it 'has subjects' do
+      it 'has subjects in thesis:subject' do
         # Theses usually have multiple subjects -- confirm all
-        @public_etd.subject do |sub|
+        @public_etd.subject.each do |sub|
           expect(response.body).to include("<thesis:subject>#{sub}</thesis:subject>")
         end
       end
-      it 'has an abstract' do
+      it 'has an abstract in thesis:description' do
         # abstract is mapped to <thesis:description>
         expect(response.body).to include("<thesis:description>#{@public_etd.abstract.first}</thesis:description>")
       end
-      it 'has a publisher' do
+      it 'has a publisher in thesis:publisher' do
         # Publisher is always 'Carleton University'
         expect(response.body).to include("<thesis:publisher>#{@public_etd.publisher.first}</thesis:publisher>")
       end
-      it 'has a YYYY date' do
+      it 'has a YYYY date in thesis:date' do
         # Date provided is YYYY format
-        expect(response.body).to include("<thesis:date>#{Time.new(@public_etd.date_created.first).strftime('%Y')}</thesis:date>")
+        expect(response.body).to include("<thesis:date>#{Date.parse(@public_etd.date_created.first).year}</thesis:date>")
       end
-      it 'has an ISO 639-3 language code' do
+      it 'has an ISO 639-3 language code in thesis:language' do
         expect(response.body).to include("<thesis:language>#{@public_etd.language.first}</thesis:language>")
       end
-      it 'has a copyright statement' do
+      it 'has a copyright statement in thesis:rights' do
         expect(response.body).to include("<thesis:rights>#{@public_etd.rights_notes.first}</thesis:rights>")
       end
-      it 'has a DOI' do
+      it 'has a DOI in thesis:identifier' do
         # Factory attribute doesn't include 'DOI: ' as a prefix
         expect(response.body).to include("<thesis:identifier>#{@public_etd.identifier.first}</thesis:identifier>")
       end
-      it 'has Etd landing page URL' do
+      it 'has Etd landing page URL in thesis:identifier' do
         # Link to Etd landing page is included as an identifier
         # e.g. https://repository.library.carleton.ca/concern/etds/r207tp32d
-        url_vars = {
-          only_path: false,
-          action: 'show',
-          host: @hyrax_host,
-          controller: 'hyrax/etds',
-          id: @public_etd.id
-        }
-        expect(response.body).to include(
-          "<thesis:identifier>#{Rails.application.routes.url_helpers.url_for(url_vars)}</thesis:identifier>"
-        )
+        expect(response.body).to include("<thesis:identifier>#{@hyrax_host}/concern/etds/#{@public_etd.id}</thesis:identifier>")
       end
-      it 'has PUBLIC file URL' do
+      it 'has PUBLIC file URL in thesis:identifier' do
         # @public_etd has one PDF file. Expect Hyrax download URL with '.pdf' appended, e.g.,
         # https://repository.library.carleton.ca/downloads/f1881k888.pdf
         expect(response.body).to include(
           '<thesis:identifier>' \
-          "#{Hyrax::Engine.routes.url_helpers.download_url(
-            @public_etd.file_set_ids.first, host: @hyrax_host
-          )}.pdf</thesis:identifier>"
+          "#{@hyrax_host}/downloads/#{@public_etd.file_set_ids.first}.pdf</thesis:identifier>"
         )
       end
 
@@ -204,12 +193,11 @@ RSpec.describe 'OAI-ETDMS endpoint' do
                                identifier: "#{@repository_id}:#{@public_etd_private_file.id}")
           # Confirm response
           expect(response.body).to include("<identifier>#{@repository_id}:#{@public_etd_private_file.id}</identifier>")
-          # Confirm file URL not present
+
+          # Confirm file URL not present, e.g., https://repository.library.carleton.ca/downloads/f1881k888.pdf
           expect(response.body).not_to include(
             '<thesis:identifier>' \
-            "#{Hyrax::Engine.routes.url_helpers.download_url(
-              @public_etd_private_file.file_set_ids.first, host: @hyrax_host
-            )}.pdf</thesis:identifier>"
+            "#{@hyrax_host}/downloads/#{@public_etd_private_file.file_set_ids.first}.pdf</thesis:identifier>"
           )
         end
       end
