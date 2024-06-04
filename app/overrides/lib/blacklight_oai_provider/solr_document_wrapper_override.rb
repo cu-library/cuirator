@@ -34,11 +34,12 @@ BlacklightOaiProvider::SolrDocumentWrapper.class_eval do
 
   def licenced_fq
     # Filter out any works that have a Carleton University thesis licence
-    # agreement and any of the current / former LAC agreements
+    # agreement but do not have any of the current / former LAC agreements
     # See config/authorities/agreements.yml
 
-    # MUST HAVE either CU TLA, or older Licence to Carleton University
-    # MUST NOT HAVE current (2020-2025) or former (2015-2020) LAC licence
+    # Filter OUT any theses that:
+    # HAVE either CU TLA, or older Licence to Carleton University
+    # DO NOT HAVE current (2020-2025) or former (2015-2020) LAC licence
     '-agreement_tesim:(+(pc289j04q OR ng451h485) -tt44pm84n -6h440t871)'
   end
 end
