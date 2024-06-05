@@ -204,10 +204,18 @@ RSpec.describe 'OAI-ETDMS endpoint' do
     end
 
     context 'a PRIVATE Etd with metadataFormat=oai_etdms' do
-      it 'displays an error' do
+      it 'displays an idDoesNotExist error' do
         get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
                              identifier: "#{@repository_id}:#{@private_etd.id}")
         expect(response.body).to include('<error code="idDoesNotExist">')
+      end
+    end
+
+    context 'a PUBLIC Work with metadataFormat=oai_etdms' do
+      it 'displays a cannotDisseminateFormat error' do
+        get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
+                             identifier: "#{@repository_id}:#{@public_work.id}")
+        expect(response.body).to include('<error code="cannotDisseminateFormat">')
       end
     end
   end

@@ -7,6 +7,8 @@ module Blacklight
   module Document
     module Etdms
       def self.extended(document)
+        return unless Blacklight::Document::Etdms.thesis?(document)
+
         Blacklight::Document::Etdms.register_export_formats(document)
       end
 
@@ -14,6 +16,10 @@ module Blacklight
         document.will_export_as(:xml)
         document.will_export_as(:etdms_xml, 'text/xml')
         document.will_export_as(:oai_etdms_xml, 'text/xml')
+      end
+
+      def self.thesis?(document)
+        document['has_model_ssim']&.include?('Etd')
       end
 
       def etdms_field_names
@@ -68,8 +74,8 @@ module Blacklight
       end
 
       def export_as_oai_etdms_xml
-        # raises exception on ListRecords verb with metadataPrefix = oai_etdms
-        # raise OAI::FormatException unless self.export_formats.include?(:etdms_xml)
+        # Only theses should be exported as oai_etdms
+        raise OAI::FormatException unless export_formats.include?(:etdms_xml)
 
         xml = Builder::XmlMarkup.new
         xml.tag!('oai_etdms:thesis',
