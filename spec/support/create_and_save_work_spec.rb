@@ -46,6 +46,7 @@ RSpec.shared_examples 'Create and save work' do
     select language, from: 'Language'
     fill_in('Identifier', with: identifier)
     fill_in('Citation', with: citation)
+    fill_in('Internal Note(s) (Admin only)', with: internal_note)
 
     # Set work visibility Public 
     choose('work_visibility_open')
@@ -75,6 +76,7 @@ RSpec.shared_examples 'Create and save work' do
     expect(page).to have_content language
     expect(page).to have_content identifier
     expect(page).to have_content citation
+    expect(page).to have_content internal_note
 
     # Log out user
     visit '/users/sign_out'

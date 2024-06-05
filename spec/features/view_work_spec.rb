@@ -37,6 +37,7 @@ RSpec.feature 'View a work', js: true do
       # View work
       visit '/concern/works/' + work.id
       expect(page).to have_css('table.related-files')
+      expect(page).to have_content 'Internal Note(s) (Admin only)'
     end
   end
 

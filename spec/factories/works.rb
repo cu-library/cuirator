@@ -10,6 +10,9 @@ FactoryBot.define do
     title { ['Title for a generic work ' + Time.new.strftime("%Y-%m-%d %H:%M:%S")] }
     resource_type { ['Report'] }
 
+    # Optional, limited-access metadata (admin, Library staff only)
+    internal_note { ['This is an internal note added by the Metadata team.'] }
+
     # Define transient attributes: these are only available in the factory block
     # & can be used to define / fetch / set additional work attributes
     transient do 

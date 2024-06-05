@@ -21,6 +21,8 @@ RSpec.feature 'Create a ResearchWork', js: true do
   let(:identifier) { 'DOI: https://doi.org/10.22215/1234' }
   let(:citation) { "Surname, G. (2023). #{work_title}. #{publisher}. https://doi.org/10.22215/1234" }
 
+  let(:internal_note) { 'This is an internal note added by the Metadata team.' }
+
   # Context for Library staff user only - create_work_spec.rb confirms
   # deposit by admin user and no access to deposit works by basic user
   context 'as a Library staff user' do
@@ -70,9 +72,11 @@ RSpec.feature 'Create a ResearchWork', js: true do
     
       # Add optional metadata
       click_on 'Additional fields'
-      fill_in('Alternative Title', with: alternative_title)
+      fill_in('Alternative title', with: alternative_title)
       fill_in('Abstract', with: abstract)
-    
+      
+      fill_in('Internal Note(s) (Admin only)', with: internal_note)
+
       # Set keyword, then click 'Add another' for each additional entry
       keywords.each do |keyword|
         page.all('input.research_work_keyword').last.set(keyword)
@@ -92,7 +96,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
 
       # Accept deposit agreement, if configured for active acceptance
       check('agreement') if Flipflop::FeatureSet.current.enabled?(:active_deposit_agreement_acceptance)
-
+      
       # Save work
       click_on("Save")
 
@@ -115,6 +119,7 @@ RSpec.feature 'Create a ResearchWork', js: true do
       expect(page).to have_content language
       expect(page).to have_content identifier 
       expect(page).to have_content citation
+      expect(page).to have_content internal_note
 
       # Log out user
       visit '/users/sign_out'

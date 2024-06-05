@@ -12,7 +12,6 @@ en:
           degree_tesim: Thesis Degree
         show:
           agreement: Agreement(s) (Admin only)
-          internal_note: Internal Note(s) (Admin only)
   hyrax:
     icons:
       etd:     'fa fa-file-text-o'
@@ -27,12 +26,11 @@ en:
   simple_form:
     hints:
       etd:
-        agreement: Agreement(s) accepted by the author during ETD submission process. 
+        agreement: Agreement(s) accepted by the author during ETD submission process. Agreements are displayed when logged in as a repository manager.
         degree: Thesis degree name. Include abbreviation in parentheses, e.g., "Master of Science (M.Sc.)".
         degree_level: Select thesis degree level.
         degree_discipline: Thesis degree discipline, e.g., "Engineering".
         rights_notes: Contains information about rights held in and over the resource. Include the general rights notes added to ETDs unless other rights information has been provided.
-        internal_note: Information about changes to ETDs. Internal notes are displayed to logged-in users with permission to edit ETDs.
         access_rights: Access Rights
 
 
