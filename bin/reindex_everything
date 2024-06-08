@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/environment'
+
+# log to stdout
+logger           = ActiveSupport::Logger.new($stdout)
+logger.formatter = ::Logger::Formatter.new
+
+# Set log level to limit log file size
+# 0 / :debug - about 500 MB
+# 1 / :info  - about 50 MB
+logger.level              = :info
+ActiveFedora::Base.logger = ActiveSupport::TaggedLogging.new(logger)
+
+logger.info("Start reindex #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}")
+ActiveFedora::Base.reindex_everything
+logger.info("End reindex #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}")
