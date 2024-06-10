@@ -187,6 +187,17 @@ RSpec.describe 'OAI-ETDMS endpoint' do
         )
       end
 
+      context 'that is NOT licensed to LAC' do
+        it 'displays an error' do
+          get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
+                               identifier: "#{@repository_id}:#{@public_etd_not_licenced.id}")
+
+          expect(response.body).not_to include(
+            "<identifier>#{@repository_id}:#{@public_etd_not_licenced.id}</identifier>"
+          )
+        end
+      end
+
       context 'with a PRIVATE file' do
         it 'does NOT have file URL' do
           get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
