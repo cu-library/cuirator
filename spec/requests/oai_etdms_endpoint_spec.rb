@@ -188,13 +188,23 @@ RSpec.describe 'OAI-ETDMS endpoint' do
       end
 
       context 'that is NOT licensed to LAC' do
-        it 'displays an error' do
+        it 'displays a cannotDisseminateFormat error' do
           get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
                                identifier: "#{@repository_id}:#{@public_etd_not_licenced.id}")
 
           expect(response.body).not_to include(
             "<identifier>#{@repository_id}:#{@public_etd_not_licenced.id}</identifier>"
           )
+          expect(response.body).to include('<error code="cannotDisseminateFormat">')
+        end
+      end
+
+      context 'with an identifier that does NOT exist' do
+        it 'displays an idDoesNotExist error' do
+          get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_etdms',
+                               identifier: "#{@repository_id}:not-a-real-id")
+
+          expect(response.body).to include('<error code="idDoesNotExist">')
         end
       end
 

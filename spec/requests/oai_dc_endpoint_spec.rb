@@ -183,9 +183,18 @@ RSpec.describe 'OAI-DC endpoint' do
     end
 
     context 'a PRIVATE Work with metadataFormat=oai_dc' do
-      it 'displays an error' do
+      it 'displays an idDoesNotExist error' do
         get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc',
                              identifier: "#{@repository_id}:#{@private_work.id}")
+        expect(response.body).to include('<error code="idDoesNotExist">')
+      end
+    end
+
+    context 'with an identifier that does NOT exist' do
+      it 'displays an idDoesNotExist error' do
+        get oai_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc',
+                             identifier: "#{@repository_id}:not-a-real-id")
+
         expect(response.body).to include('<error code="idDoesNotExist">')
       end
     end
