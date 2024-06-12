@@ -26,12 +26,22 @@ class CatalogController < ApplicationController
         repository_name: 'Carleton University Institutional Repository',
         repository_url: ENV.fetch('REPOSITORY_URL', 'https://repository.library.carleton.ca/catalog/oai'),
         admin_email: ENV.fetch('CONTACT_EMAIL', 'repository.support@carleton.ca'),
-        record_prefix: 'oai:repository.library.carleton.ca',
+        record_prefix: 'oai:repository.library.carleton.ca'
       },
       document: {
         set_fields: [
-          { label: 'Collection', solr_field: solr_name('member_of_collections', :symbol) }
-        ]
+          { label: 'Collection', solr_field: 'member_of_oai_sets_ssim' }
+        ],
+        format_filters: {
+          'oai_etdms': [
+            # Only Etds are available over oai_etdms
+            'has_model_ssim:Etd',
+            # Filter OUT any Etds that are not licenced to LAC.
+            # Filter OUT any Etds that have (any Carleton licence) AND none of the LAC licences.
+            # See config/authorities/agreements.yml for terms
+            '-agreement_tesim:(+(pc289j04q OR ng451h485) -tt44pm84n -6h440t871)'
+          ]
+        }
       }
     }
 
@@ -316,4 +326,9 @@ class CatalogController < ApplicationController
   def render_bookmarks_control?
     false
   end
+
+  # Register oai_etdms metadata format
+  BlacklightOaiProvider::SolrDocumentProvider.register_format(
+    OAI::Provider::Metadata::Etdms.instance
+  )
 end
