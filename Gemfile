@@ -47,6 +47,7 @@ gem 'irb'
 gem 'hydra-role-management'
 gem 'bulkrax', '~> 5.5.1', git: 'https://github.com/samvera-labs/bulkrax.git', tag: 'v5.5.1'
 gem 'blacklight_oai_provider'
+gem 'sprockets', '3.7.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
